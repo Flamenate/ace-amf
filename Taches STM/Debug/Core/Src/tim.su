@@ -1,0 +1,7 @@
+../Core/Src/tim.c:31:6:MX_TIM1_Init	32	static
+../Core/Src/tim.c:72:6:MX_TIM2_Init	32	static
+../Core/Src/tim.c:112:6:HAL_TIM_Base_MspInit	24	static
+../Core/Src/tim.c:147:6:HAL_TIM_Base_MspDeInit	16	static
+../Core/Src/tim.c:182:6:tache_1s	8	static
+../Core/Src/tim.c:186:6:tache_10ms	8	static
+../Core/Src/tim.c:190:6:HAL_TIM_PeriodElapsedCallback	16	static
