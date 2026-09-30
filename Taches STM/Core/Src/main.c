@@ -26,6 +26,9 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
+#include <stdio.h>
+#include <string.h>
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -95,12 +98,30 @@ int main(void)
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
 
+  char cadena[128] = {0};
+  uint32_t acquisition_brute = 0;
+  float tension = 0.0f;
+  HAL_TIM_Base_Start_IT(&htim1);
+  HAL_TIM_Base_Start_IT(&htim2);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  HAL_ADC_Start(&hadc1);
+	  acquisition_brute = HAL_ADC_GetValue(&hadc1);
+	  tension = ((float)acquisition_brute * 3.3f) / 4095.0f;
+	//valeurs du datasheet stm32f411
+	//https://www.st.com/en/microcontrollers-microprocessors/stm32f411/documentation.html
+
+	  sprintf(cadena, "ADC = %lu | Tension = %.3f V\n",
+			 acquisition_brute,
+			 tension);
+
+	  HAL_UART_Transmit(&huart2, (uint8_t *)cadena, strlen(cadena), HAL_MAX_DELAY);
+
+	  HAL_Delay(100);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

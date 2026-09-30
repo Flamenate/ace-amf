@@ -9,7 +9,7 @@ int main(void)
         char message[50];
         sprintf(message, "Valeur = %u\r\n", valeur);
 
-        HAL_UART_Transmit(&huart1, message, strlen(message), HAL_MAX_DELAY);
+
 
         Delay_ms(1000);
     }
