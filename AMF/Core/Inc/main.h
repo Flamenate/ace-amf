@@ -32,6 +32,9 @@ extern "C" {
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
+#include "FreeRTOS.h"
+#include "semphr.h"
+
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -63,6 +66,11 @@ void Error_Handler(void);
 #define RESET_VL53_GPIO_Port GPIOA
 
 /* USER CODE BEGIN Private defines */
+
+extern uint32_t adc_raw;
+extern SemaphoreHandle_t semaphore_courant;
+extern SemaphoreHandle_t semaphore_position;
+extern uint16_t consigne_position;
 
 /* USER CODE END Private defines */
 

@@ -22,9 +22,15 @@
 
 /* USER CODE BEGIN 0 */
 
+#include <stdlib.h>
+#include <stdio.h>
+
+#include "tim.h"
+
 /* USER CODE END 0 */
 
 UART_HandleTypeDef huart2;
+DMA_HandleTypeDef hdma_usart2_rx;
 
 /* USART2 init function */
 
@@ -80,6 +86,28 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
     GPIO_InitStruct.Alternate = GPIO_AF7_USART2;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
+    /* USART2 DMA Init */
+    /* USART2_RX Init */
+    hdma_usart2_rx.Instance = DMA1_Stream5;
+    hdma_usart2_rx.Init.Channel = DMA_CHANNEL_4;
+    hdma_usart2_rx.Init.Direction = DMA_PERIPH_TO_MEMORY;
+    hdma_usart2_rx.Init.PeriphInc = DMA_PINC_DISABLE;
+    hdma_usart2_rx.Init.MemInc = DMA_MINC_ENABLE;
+    hdma_usart2_rx.Init.PeriphDataAlignment = DMA_PDATAALIGN_BYTE;
+    hdma_usart2_rx.Init.MemDataAlignment = DMA_MDATAALIGN_BYTE;
+    hdma_usart2_rx.Init.Mode = DMA_NORMAL;
+    hdma_usart2_rx.Init.Priority = DMA_PRIORITY_LOW;
+    hdma_usart2_rx.Init.FIFOMode = DMA_FIFOMODE_DISABLE;
+    if (HAL_DMA_Init(&hdma_usart2_rx) != HAL_OK)
+    {
+      Error_Handler();
+    }
+
+    __HAL_LINKDMA(uartHandle,hdmarx,hdma_usart2_rx);
+
+    /* USART2 interrupt Init */
+    HAL_NVIC_SetPriority(USART2_IRQn, 5, 0);
+    HAL_NVIC_EnableIRQ(USART2_IRQn);
   /* USER CODE BEGIN USART2_MspInit 1 */
 
   /* USER CODE END USART2_MspInit 1 */
@@ -103,6 +131,11 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
     */
     HAL_GPIO_DeInit(GPIOA, GPIO_PIN_2|GPIO_PIN_3);
 
+    /* USART2 DMA DeInit */
+    HAL_DMA_DeInit(uartHandle->hdmarx);
+
+    /* USART2 interrupt Deinit */
+    HAL_NVIC_DisableIRQ(USART2_IRQn);
   /* USER CODE BEGIN USART2_MspDeInit 1 */
 
   /* USER CODE END USART2_MspDeInit 1 */
@@ -110,6 +143,36 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 }
 
 /* USER CODE BEGIN 1 */
+
+char RX_BUF[RX_MAX] = {0};
+
+void uart_receive_dma() {
+	HAL_UARTEx_ReceiveToIdle_DMA(&huart2, (uint8_t *)RX_BUF, RX_MAX);
+	__HAL_DMA_DISABLE_IT(huart2.hdmarx, DMA_IT_HT);
+}
+
+void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size) {
+	if (huart->Instance == USART2) {
+		char *end;
+		consigne_position = strtoul(RX_BUF, &end, 10);
+
+		// Saturation de la consigne pour les limits de deplacement de la masse
+		if (consigne_position > 165) {
+			consigne_position = 165;
+		} else if (consigne_position < 65) {
+			consigne_position = 65;
+		}
+
+		char msg[16] = {0};
+		uint8_t n = 0;
+		n = snprintf(msg, sizeof(msg), "Cons = %u\n", consigne_position);
+
+		// Echo
+		HAL_UART_Transmit(&huart2, (uint8_t *)msg, n, 100);
+	}
+
+	uart_receive_dma();
+}
 
 /* USER CODE END 1 */
 

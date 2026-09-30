@@ -36,11 +36,17 @@ extern UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN Private defines */
 
+#define RX_MAX 16
+
+extern char RX_BUF[RX_MAX];
+
 /* USER CODE END Private defines */
 
 void MX_USART2_UART_Init(void);
 
 /* USER CODE BEGIN Prototypes */
+
+void uart_receive_dma();
 
 /* USER CODE END Prototypes */
 

@@ -1,0 +1,4 @@
+../Core/Src/freertos.c:101:6:MX_FREERTOS_Init	1
+../Core/Src/freertos.c:154:6:ctrl_courant	1
+../Core/Src/freertos.c:172:6:ctrl_position	2
+../Core/Src/freertos.c:208:6:test_task	1

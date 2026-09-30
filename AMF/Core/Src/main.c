@@ -1,32 +1,33 @@
 /* USER CODE BEGIN Header */
 /**
-  ******************************************************************************
-  * @file           : main.c
-  * @brief          : Main program body
-  ******************************************************************************
-  * @attention
-  *
-  * Copyright (c) 2026 STMicroelectronics.
-  * All rights reserved.
-  *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
-  ******************************************************************************
-  */
+ ******************************************************************************
+ * @file           : main.c
+ * @brief          : Main program body
+ ******************************************************************************
+ * @attention
+ *
+ * Copyright (c) 2026 STMicroelectronics.
+ * All rights reserved.
+ *
+ * This software is licensed under terms that can be found in the LICENSE file
+ * in the root directory of this software component.
+ * If no LICENSE file comes with this software, it is provided AS-IS.
+ *
+ ******************************************************************************
+ */
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "cmsis_os.h"
+#include "adc.h"
+#include "dma.h"
 #include "i2c.h"
+#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
-#include "uart_trace.c"
-#include "vl53l0x_api.h"
 
 /* USER CODE END Includes */
 
@@ -49,13 +50,11 @@
 
 /* USER CODE BEGIN PV */
 
-int status=0;
-uint16_t position_courante=0;
-
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
+void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -73,7 +72,7 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
-	RangingConfig_e RangingConfig = HIGH_ACCURACY;
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -94,40 +93,51 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_I2C1_Init();
   MX_USART2_UART_Init();
+  MX_ADC1_Init();
+  MX_TIM3_Init();
+  MX_TIM2_Init();
+  MX_TIM5_Init();
   /* USER CODE BEGIN 2 */
 
-  XNUCLEO53L0A1_hi2c = hi2c1;
-  char msg2[]="main code";
-  F411_SetDisplayString(msg2);
-  ResetAndDetectSensor(0);
-  F411_SetDisplayString("debut while");
-  /* Reset and Detect all sensors */
-  ResetAndDetectSensor(0);
-  SetupSingleShot(RangingConfig);
+	// Reception de données par UART
+	uart_receive_dma();
+
+	// Sortie PWM pour commuter MOSFET et faire convertion ADC avec TRGO
+	// f = 5 kHz
+	HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
+	__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, 0.1f*__HAL_TIM_GET_AUTORELOAD(&htim3));
+
+	// Convertion ADC lancées pour TRGO du TIM3
+	HAL_ADC_Start_DMA(&hadc1, &adc_raw, 1);
+
+	// Timer pour boucle de courant 1 kHz
+	//HAL_TIM_Base_Start_IT(&htim2);
+
+	// Timer pour boucle de position 100 Hz
+	HAL_TIM_Base_Start_IT(&htim5);
 
   /* USER CODE END 2 */
 
+  /* Init scheduler */
+  osKernelInitialize();  /* Call init function for freertos objects (in cmsis_os2.c) */
+  MX_FREERTOS_Init();
+
+  /* Start scheduler */
+  osKernelStart();
+
+  /* We should never get here as control is now taken by the scheduler */
+
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  while (1)
-  {
-	  HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
-  	  HAL_Delay(500);
+	while (1) {
+		HAL_Delay(500);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-  	/* only one sensor */
-  	/* Call All-In-One blocking API function */
-  	status = VL53L0X_PerformSingleRangingMeasurement(&VL53L0XDevs[0],
-  	&RangingMeasurementData);
-  	position_courante=RangingMeasurementData.RangeMilliMeter;
-  	if( status ==0 ){
-  	trace_printf("\r\n%d", position_courante);
-  	// Sensor_SetNewRange(&VL53L0XDevs[0],&RangingMeasurementData);
-  	}
-  }
+	}
   /* USER CODE END 3 */
 }
 
@@ -181,17 +191,50 @@ void SystemClock_Config(void)
 /* USER CODE END 4 */
 
 /**
+  * @brief  Period elapsed callback in non blocking mode
+  * @note   This function is called  when TIM11 interrupt took place, inside
+  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
+  * a global variable "uwTick" used as application time base.
+  * @param  htim : TIM handle
+  * @retval None
+  */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  /* USER CODE BEGIN Callback 0 */
+
+	BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+
+  /* USER CODE END Callback 0 */
+  if (htim->Instance == TIM11)
+  {
+    HAL_IncTick();
+  }
+  /* USER CODE BEGIN Callback 1 */
+
+	else if (htim->Instance == TIM2) {
+		// Timer courant 1kHz
+		xSemaphoreGiveFromISR(semaphore_courant, &xHigherPriorityTaskWoken);
+	} else if (htim->Instance == TIM5) {
+		// Timer position 100Hz
+		xSemaphoreGiveFromISR(semaphore_position, &xHigherPriorityTaskWoken);
+	}
+
+	portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+
+  /* USER CODE END Callback 1 */
+}
+
+/**
   * @brief  This function is executed in case of error occurrence.
   * @retval None
   */
 void Error_Handler(void)
 {
   /* USER CODE BEGIN Error_Handler_Debug */
-  /* User can add his own implementation to report the HAL error return state */
-  __disable_irq();
-  while (1)
-  {
-  }
+	/* User can add his own implementation to report the HAL error return state */
+	__disable_irq();
+	while (1) {
+	}
   /* USER CODE END Error_Handler_Debug */
 }
 #ifdef USE_FULL_ASSERT
