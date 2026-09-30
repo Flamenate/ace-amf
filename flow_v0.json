@@ -1,0 +1,561 @@
+[
+    {
+        "id": "290a824f3a4c06df",
+        "type": "tab",
+        "label": "ACE",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "d245a6660bd0808b",
+        "type": "ui-chart",
+        "z": "290a824f3a4c06df",
+        "d": true,
+        "group": "11ba5e3dfe6326f4",
+        "name": "Temperature Ressort (??)",
+        "label": "Temperature Ressort AMF",
+        "order": 4,
+        "chartType": "line",
+        "category": "topic",
+        "categoryType": "msg",
+        "xAxisLabel": "Temps",
+        "xAxisProperty": "",
+        "xAxisPropertyType": "timestamp",
+        "xAxisType": "time",
+        "xAxisFormat": "",
+        "xAxisFormatType": "auto",
+        "xmin": "",
+        "xmax": "",
+        "yAxisLabel": "Temperature",
+        "yAxisProperty": "payload",
+        "yAxisPropertyType": "msg",
+        "ymin": "",
+        "ymax": "",
+        "bins": 10,
+        "action": "append",
+        "stackSeries": false,
+        "pointShape": "circle",
+        "pointRadius": 4,
+        "showLegend": true,
+        "removeOlder": 1,
+        "removeOlderUnit": "60",
+        "removeOlderPoints": "",
+        "colors": [
+            "#0095ff",
+            "#ff0000",
+            "#ff7f0e",
+            "#2ca02c",
+            "#a347e1",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "textColor": [
+            "#666666"
+        ],
+        "textColorDefault": true,
+        "gridColor": [
+            "#e5e5e5"
+        ],
+        "gridColorDefault": true,
+        "width": 6,
+        "height": 8,
+        "className": "",
+        "interpolation": "smooth",
+        "x": 570,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "46181a740bd8b088",
+        "type": "ui-gauge",
+        "z": "290a824f3a4c06df",
+        "name": "Position Actuelle",
+        "group": "11ba5e3dfe6326f4",
+        "order": 2,
+        "value": "payload",
+        "valueType": "msg",
+        "width": 3,
+        "height": 3,
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "Position Actuelle",
+        "alwaysShowTitle": false,
+        "floatingTitlePosition": "top-left",
+        "units": "cm",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#5cd65c",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "4",
+                "color": "#ffc800",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "7",
+                "color": "#ea5353",
+                "text": "",
+                "textType": "label"
+            }
+        ],
+        "min": "10",
+        "max": "25",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 520,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f81e46d74d6af12d",
+        "type": "ui-chart",
+        "z": "290a824f3a4c06df",
+        "group": "11ba5e3dfe6326f4",
+        "name": "Courant",
+        "label": "Courant (Intensité)",
+        "order": 5,
+        "chartType": "line",
+        "category": "topic",
+        "categoryType": "msg",
+        "xAxisLabel": "Temps",
+        "xAxisProperty": "",
+        "xAxisPropertyType": "timestamp",
+        "xAxisType": "time",
+        "xAxisFormat": "",
+        "xAxisFormatType": "auto",
+        "xmin": "",
+        "xmax": "",
+        "yAxisLabel": "Intensité (A)",
+        "yAxisProperty": "payload.current",
+        "yAxisPropertyType": "msg",
+        "ymin": "0",
+        "ymax": "5",
+        "bins": 10,
+        "action": "append",
+        "stackSeries": false,
+        "pointShape": "circle",
+        "pointRadius": 4,
+        "showLegend": true,
+        "removeOlder": 1,
+        "removeOlderUnit": "3600",
+        "removeOlderPoints": "",
+        "colors": [
+            "#0095ff",
+            "#ff0000",
+            "#ff7f0e",
+            "#2ca02c",
+            "#a347e1",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "textColor": [
+            "#666666"
+        ],
+        "textColorDefault": true,
+        "gridColor": [
+            "#e5e5e5"
+        ],
+        "gridColorDefault": true,
+        "width": 6,
+        "height": 8,
+        "className": "",
+        "interpolation": "smooth",
+        "x": 500,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a585a4ed955769cb",
+        "type": "ui-slider",
+        "z": "290a824f3a4c06df",
+        "group": "0179946a8e94b94a",
+        "name": "Position Désirée",
+        "label": "Position Désirée",
+        "tooltip": "",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "outs": "all",
+        "topic": "topic",
+        "topicType": "msg",
+        "thumbLabel": "true",
+        "showTicks": "always",
+        "min": "10",
+        "max": "25",
+        "step": 1,
+        "className": "",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": false,
+        "x": 160,
+        "y": 600,
+        "wires": [
+            [
+                "922ab159d5dc90c6"
+            ]
+        ]
+    },
+    {
+        "id": "dec99c05c4aa70c7",
+        "type": "ui-progress",
+        "z": "290a824f3a4c06df",
+        "group": "11ba5e3dfe6326f4",
+        "name": "PWM",
+        "label": "PWM",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "color": "",
+        "className": "",
+        "x": 650,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "04d61d92a70536d0",
+        "type": "ui-button",
+        "z": "290a824f3a4c06df",
+        "group": "0179946a8e94b94a",
+        "name": "START",
+        "label": "START",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "{\"COMMAND\": 1}",
+        "payloadType": "json",
+        "topic": "payload",
+        "topicType": "msg",
+        "buttonColor": "green",
+        "textColor": "white",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 300,
+        "y": 480,
+        "wires": [
+            [
+                "38bb8954d8e54091"
+            ]
+        ]
+    },
+    {
+        "id": "86bcee3181154b23",
+        "type": "ui-button",
+        "z": "290a824f3a4c06df",
+        "group": "0179946a8e94b94a",
+        "name": "STOP",
+        "label": "STOP",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "{\"COMMAND\": 0}",
+        "payloadType": "str",
+        "topic": "payload",
+        "topicType": "msg",
+        "buttonColor": "red",
+        "textColor": "white",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 290,
+        "y": 540,
+        "wires": [
+            [
+                "38bb8954d8e54091"
+            ]
+        ]
+    },
+    {
+        "id": "271135768aa618b7",
+        "type": "ui-text",
+        "z": "290a824f3a4c06df",
+        "group": "11ba5e3dfe6326f4",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "Statut",
+        "label": "Statut: ",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload.status",
+        "valueType": "msg",
+        "x": 490,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "48e9109823605767",
+        "type": "serial in",
+        "z": "290a824f3a4c06df",
+        "name": "UART Input",
+        "serial": "7c30272248c369ad",
+        "x": 90,
+        "y": 220,
+        "wires": [
+            [
+                "47c6a7e71cb56dc4"
+            ]
+        ]
+    },
+    {
+        "id": "38bb8954d8e54091",
+        "type": "serial out",
+        "z": "290a824f3a4c06df",
+        "name": "UART Output",
+        "serial": "7c30272248c369ad",
+        "x": 540,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "922ab159d5dc90c6",
+        "type": "function",
+        "z": "290a824f3a4c06df",
+        "name": "JSONify",
+        "func": "return {\"pos_cm\": msg.payload};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 600,
+        "wires": [
+            [
+                "38bb8954d8e54091"
+            ]
+        ]
+    },
+    {
+        "id": "47c6a7e71cb56dc4",
+        "type": "function",
+        "z": "290a824f3a4c06df",
+        "name": "DeJSONify",
+        "func": "return {...msg.payload};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 220,
+        "wires": [
+            [
+                "46181a740bd8b088",
+                "271135768aa618b7",
+                "614ea0ecbd9cd27b",
+                "f81e46d74d6af12d"
+            ]
+        ]
+    },
+    {
+        "id": "614ea0ecbd9cd27b",
+        "type": "function",
+        "z": "290a824f3a4c06df",
+        "name": "PWMify",
+        "func": "\nreturn msg.payload.pwm;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 280,
+        "wires": [
+            [
+                "dec99c05c4aa70c7"
+            ]
+        ]
+    },
+    {
+        "id": "11ba5e3dfe6326f4",
+        "type": "ui-group",
+        "name": "Output",
+        "page": "486977ab13fc8ba6",
+        "width": 6,
+        "height": 1,
+        "order": 2,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "0179946a8e94b94a",
+        "type": "ui-group",
+        "name": "Input",
+        "page": "486977ab13fc8ba6",
+        "width": 6,
+        "height": 1,
+        "order": 1,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "7c30272248c369ad",
+        "type": "serial-port",
+        "name": "STM F411RE",
+        "serialport": "/dev/tty/test",
+        "serialbaud": "115200",
+        "databits": 8,
+        "parity": "none",
+        "stopbits": 1,
+        "waitfor": "",
+        "dtr": "none",
+        "rts": "none",
+        "cts": "none",
+        "dsr": "none",
+        "newline": "\\n",
+        "bin": "false",
+        "out": "char",
+        "addchar": "",
+        "responsetimeout": 10000
+    },
+    {
+        "id": "486977ab13fc8ba6",
+        "type": "ui-page",
+        "name": "ACE Interface",
+        "ui": "0d63522267edb7d1",
+        "path": "/dash",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "8a11916d0c3db486",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": "0",
+                "cols": "3"
+            },
+            {
+                "name": "Tablet",
+                "px": "576",
+                "cols": "6"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "768",
+                "cols": "9"
+            },
+            {
+                "name": "Desktop",
+                "px": "1024",
+                "cols": "12"
+            }
+        ],
+        "order": 1,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "0d63522267edb7d1",
+        "type": "ui-base",
+        "name": "My Dashboard",
+        "path": "/dashboard",
+        "appIcon": "",
+        "includeClientData": true,
+        "acceptsClientConfig": [
+            "ui-notification",
+            "ui-control"
+        ],
+        "showPathInSidebar": false,
+        "headerContent": "page",
+        "navigationStyle": "default",
+        "titleBarStyle": "default",
+        "showReconnectNotification": true,
+        "notificationDisplayTime": 1,
+        "showDisconnectNotification": true,
+        "allowInstall": false
+    },
+    {
+        "id": "8a11916d0c3db486",
+        "type": "ui-theme",
+        "name": "Default Theme",
+        "colors": {
+            "surface": "#fcfcfd",
+            "primary": "#0d74ce",
+            "bgPage": "#f9f9fb",
+            "groupBg": "#ffffff",
+            "groupOutline": "#d9d9e0"
+        },
+        "sizes": {
+            "density": "default",
+            "pagePadding": "12px",
+            "groupGap": "12px",
+            "groupBorderRadius": "4px",
+            "widgetGap": "12px"
+        }
+    },
+    {
+        "id": "86d6057ec7ad8238",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "@flowfuse/node-red-dashboard": "1.31.0",
+            "node-red-node-serialport": "2.0.3"
+        }
+    }
+]
