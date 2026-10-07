@@ -73,6 +73,7 @@ extern SemaphoreHandle_t semaphore_position;
 extern volatile float courant;
 extern volatile float puissance;
 extern volatile uint16_t position;
+extern volatile uint16_t consigne_position;
 
 /* USER CODE END Private defines */
 

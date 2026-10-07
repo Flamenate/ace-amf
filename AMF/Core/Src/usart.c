@@ -153,7 +153,6 @@ void uart_receive_dma() {
 
 void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size) {
 	if (huart->Instance == USART2) {
-		/*
 		char *end;
 		consigne_position = strtoul(RX_BUF, &end, 10);
 
@@ -164,13 +163,13 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size) {
 			consigne_position = 65;
 		}
 
+		// ECHO
 		char msg[16] = {0};
 		uint8_t n = 0;
 		n = snprintf(msg, sizeof(msg), "Cons = %u\n", consigne_position);
 
 		// Echo
 		HAL_UART_Transmit(&huart2, (uint8_t *)msg, n, 100);
-		*/
 	}
 
 	uart_receive_dma();

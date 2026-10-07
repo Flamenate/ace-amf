@@ -163,7 +163,7 @@ void ctrl_courant(void *argument)
   /* USER CODE BEGIN ctrl_courant */
 	float consigne_courant = 0;
 	float consigne_tension = 0;
-	float duty = 0;
+	duty = 0;
 
   /* Infinite loop */
   while (1) {
