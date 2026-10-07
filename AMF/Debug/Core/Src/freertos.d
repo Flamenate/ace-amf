@@ -47,6 +47,7 @@ Core/Src/freertos.o: ../Core/Src/freertos.c \
  ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h \
  ../Core/Inc/usart.h ../Core/Inc/main.h ../Core/Inc/i2c.h \
+ ../Core/Inc/tim.h \
  /home/juli/Documents/st/ENIB/AMF/Drivers/BSP/Components/vl53l0x/vl53l0x_api.h \
  /home/juli/Documents/st/ENIB/AMF/Drivers/BSP/Components/vl53l0x/vl53l0x_api_strings.h \
  /home/juli/Documents/st/ENIB/AMF/Drivers/BSP/Components/vl53l0x/vl53l0x_def.h \
@@ -108,6 +109,7 @@ Core/Src/freertos.o: ../Core/Src/freertos.c \
 ../Core/Inc/usart.h:
 ../Core/Inc/main.h:
 ../Core/Inc/i2c.h:
+../Core/Inc/tim.h:
 /home/juli/Documents/st/ENIB/AMF/Drivers/BSP/Components/vl53l0x/vl53l0x_api.h:
 /home/juli/Documents/st/ENIB/AMF/Drivers/BSP/Components/vl53l0x/vl53l0x_api_strings.h:
 /home/juli/Documents/st/ENIB/AMF/Drivers/BSP/Components/vl53l0x/vl53l0x_def.h:

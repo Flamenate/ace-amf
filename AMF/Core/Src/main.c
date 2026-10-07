@@ -112,12 +112,13 @@ int main(void)
 
 	// Convertion ADC lancées pour TRGO du TIM3
 	HAL_ADC_Start_DMA(&hadc1, &adc_raw, 1);
+	__HAL_DMA_DISABLE_IT(hadc1.DMA_Handle, DMA_IT_HT);
 
 	// Timer pour boucle de courant 1 kHz
 	//HAL_TIM_Base_Start_IT(&htim2);
 
 	// Timer pour boucle de position 100 Hz
-	HAL_TIM_Base_Start_IT(&htim5);
+	//HAL_TIM_Base_Start_IT(&htim5);
 
   /* USER CODE END 2 */
 

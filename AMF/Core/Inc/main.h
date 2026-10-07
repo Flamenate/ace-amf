@@ -70,7 +70,8 @@ void Error_Handler(void);
 extern uint32_t adc_raw;
 extern SemaphoreHandle_t semaphore_courant;
 extern SemaphoreHandle_t semaphore_position;
-extern uint16_t consigne_position;
+extern volatile float courant;
+extern float puissance;
 
 /* USER CODE END Private defines */
 

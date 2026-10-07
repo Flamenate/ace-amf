@@ -27,9 +27,11 @@
 /* USER CODE BEGIN Includes */
 
 #include <stdint.h>
+#include <math.h>
 #include "semphr.h"
 #include "usart.h"
 #include "i2c.h"
+#include "tim.h"
 #include "vl53l0x_api.h"
 #include "controle.h"
 
@@ -56,8 +58,10 @@
 SemaphoreHandle_t semaphore_courant;
 SemaphoreHandle_t semaphore_position;
 uint32_t adc_raw = 0;
-uint16_t consigne_position = 65; // Hauteur du masse avec fil eloigné
-static float consgine_puissance = 0;
+volatile uint16_t consigne_position = 65; // Hauteur du masse avec fil eloigné
+static float consigne_puissance = 0;
+volatile float courant = 0;
+float puissance = 0;
 
 /* USER CODE END Variables */
 /* Definitions for boucle_courant */
@@ -154,10 +158,21 @@ void MX_FREERTOS_Init(void) {
 void ctrl_courant(void *argument)
 {
   /* USER CODE BEGIN ctrl_courant */
+	float consigne_courant = 0;
+	float erreur = 0;
+	float duty = 0;
   /* Infinite loop */
   while (1) {
     xSemaphoreTake(semaphore_courant, portMAX_DELAY);
-    HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+
+    // I* = sqrt(P*/R) -> P* = I*^2 x R
+    consigne_courant = sqrtf(consigne_puissance/R);
+
+    erreur = consigne_courant - courant;
+
+    duty = pid_courrant(erreur);
+
+    set_pwm_duty(duty);
   }
   /* USER CODE END ctrl_courant */
 }
@@ -186,14 +201,14 @@ void ctrl_position(void *argument)
   /* Infinite loop */
   while (1) {
     xSemaphoreTake(semaphore_position, portMAX_DELAY);
-    HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
-    /*
+    //HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+
     uint16_t position = VL53L0X_LeerDistanciaMM(&vl53l0x_dev, &RangingData, &status);
 
     int16_t erreur = consigne_position - position;
 
-    consgine_puissance = pid_position(erreur);
-    */
+    consigne_puissance = pid_position(erreur);
+
   }
   /* USER CODE END ctrl_position */
 }
@@ -205,12 +220,21 @@ void ctrl_position(void *argument)
 * @retval None
 */
 /* USER CODE END Header_test_task */
+
+static float duty = 0;
+
 void test_task(void *argument)
 {
   /* USER CODE BEGIN test_task */
+	char cadena[32] = {0};
+	int n = 0;
   /* Infinite loop */
   while (1) {
-    vTaskDelay(portMAX_DELAY);
+    vTaskDelay(200);
+    //HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+    duty = 100.0f * (float)htim3.Instance->CCR1 / (float)htim3.Instance->ARR;
+    n = snprintf(cadena, sizeof(cadena), "duty = %f\n", duty);
+    HAL_UART_Transmit(&huart2, (uint8_t *)cadena, n, 100);
   }
   /* USER CODE END test_task */
 }
