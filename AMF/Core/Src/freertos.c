@@ -164,6 +164,9 @@ void ctrl_courant(void *argument)
 	float consigne_courant = 0;
 	float erreur = 0;
 	float duty = 0;
+	puissance = consigne_position * 3;
+	position = consigne_position * 2;
+	tension_fil = consigne_position * 10;
   /* Infinite loop */
   while (1) {
     xSemaphoreTake(semaphore_courant, portMAX_DELAY);
