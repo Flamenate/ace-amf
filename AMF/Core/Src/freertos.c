@@ -162,11 +162,9 @@ void ctrl_courant(void *argument)
 {
   /* USER CODE BEGIN ctrl_courant */
 	float consigne_courant = 0;
-	float erreur = 0;
+	float consigne_tension = 0;
 	float duty = 0;
-	puissance = consigne_position * 3;
-	position = consigne_position * 2;
-	tension_fil = consigne_position * 10;
+
   /* Infinite loop */
   while (1) {
     xSemaphoreTake(semaphore_courant, portMAX_DELAY);
@@ -174,9 +172,9 @@ void ctrl_courant(void *argument)
     // I* = sqrt(P*/R) -> P* = I*^2 x R
     consigne_courant = sqrtf(consigne_puissance/R);
 
-    erreur = consigne_courant - courant;
+    consigne_tension = consigne_courant * R;
 
-    duty = pid_courrant(erreur);
+    duty = consigne_tension / VCC;
 
     set_pwm_duty(duty);
   }

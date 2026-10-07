@@ -1,5 +1,6 @@
 #include "controle.h"
 #include "main.h"
+#include "tim.h"
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc) {
 	//HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
@@ -56,8 +57,10 @@ float pid_position(int16_t erreur) {
 	}
 
 	float proportionale = P_pos * erreur;
-	float temp = I_pos * DT_pos * (erreur + prev_erreur) * 0.5f;
+	float temp = I_pos * DT_pos * ((float)erreur + (float)prev_erreur) * 0.5f;
 	integrale += temp;
+
+	prev_erreur = erreur;
 
 	float integrale_max;
 
@@ -84,17 +87,14 @@ float pid_position(int16_t erreur) {
 }
 
 float pid_courrant(float erreur) {
-	static float prev_erreur = 0;
+	static int16_t prev_erreur = 0;
 	static float integrale = 0;
 
-	// La masse est plus haute que la consigne -> Le fils doit refroidir
-	if (erreur <= 0) {
-		return 0.0f;
-	}
-
 	float proportionale = P_pos * erreur;
-	float temp = I_pos * DT_pos * (erreur + prev_erreur) * 0.5f;
+	float temp = I_pos * DT_pos * ((float)erreur + (float)prev_erreur) * 0.5f;
 	integrale += temp;
+
+	prev_erreur = erreur;
 
 	float integrale_max;
 
@@ -121,5 +121,5 @@ float pid_courrant(float erreur) {
 }
 
 void set_pwm_duty(float duty) {
-	volatile int dasd = 0;
+	__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, (float)(duty * __HAL_TIM_GET_AUTORELOAD(&htim3)));
 }

@@ -52,7 +52,8 @@ Core/Src/controle.o: ../Core/Src/controle.c ../Core/Inc/controle.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h \
- ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h
+ ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h \
+ ../Core/Inc/tim.h ../Core/Inc/main.h
 ../Core/Inc/controle.h:
 /home/juli/Documents/st/ENIB/AMF/Drivers/BSP/Components/vl53l0x/vl53l0x_api.h:
 /home/juli/Documents/st/ENIB/AMF/Drivers/BSP/Components/vl53l0x/vl53l0x_api_strings.h:
@@ -109,3 +110,5 @@ Core/Src/controle.o: ../Core/Src/controle.c ../Core/Inc/controle.h \
 ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h:
+../Core/Inc/tim.h:
+../Core/Inc/main.h:

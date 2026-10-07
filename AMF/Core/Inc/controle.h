@@ -10,6 +10,7 @@
 #define I_cur			1.0f
 #define DT_pos			0.01f 	// [s]
 #define DT_cur			0.001f 	// [s]
+#define VCC				12.0f	// [V]
 #define R				1.5f 	// [ohm]
 #define I_MAX			1.5f	// [A]
 #define P_MAX			I_MAX * I_MAX * R // [W]
