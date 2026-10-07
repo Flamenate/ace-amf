@@ -72,6 +72,7 @@ extern SemaphoreHandle_t semaphore_courant;
 extern SemaphoreHandle_t semaphore_position;
 extern volatile float courant;
 extern float puissance;
+extern float position;
 
 /* USER CODE END Private defines */
 
