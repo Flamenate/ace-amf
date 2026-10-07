@@ -59,12 +59,12 @@ SemaphoreHandle_t semaphore_courant;
 SemaphoreHandle_t semaphore_position;
 uint32_t adc_raw = 0;
 volatile uint16_t consigne_position = 65; // Hauteur du masse avec fil eloigné
-float position = 65;
+volatile float position = 65;
 static float consigne_puissance = 0;
 volatile float courant = 0;
-float puissance = 0;
-float duty = 0;
-float tension_fil = 0;
+volatile float puissance = 0;
+volatile float duty = 0;
+volatile float tension_fil = 0;
 
 /* USER CODE END Variables */
 /* Definitions for boucle_courant */

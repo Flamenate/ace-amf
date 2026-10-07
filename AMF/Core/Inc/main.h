@@ -71,8 +71,8 @@ extern uint32_t adc_raw;
 extern SemaphoreHandle_t semaphore_courant;
 extern SemaphoreHandle_t semaphore_position;
 extern volatile float courant;
-extern float puissance;
-extern float position;
+extern volatile float puissance;
+extern volatile float position;
 
 /* USER CODE END Private defines */
 
