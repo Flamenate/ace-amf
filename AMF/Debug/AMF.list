@@ -27,25 +27,25 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  11 .ARM.attributes 00000030  00000000  00000000  00014498  2**0
                   CONTENTS, READONLY
- 12 .debug_info   0002b159  00000000  00000000  000144c8  2**0
+ 12 .debug_info   0002b19c  00000000  00000000  000144c8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 000057ca  00000000  00000000  0003f621  2**0
+ 13 .debug_abbrev 000057ca  00000000  00000000  0003f664  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 00002060  00000000  00000000  00044df0  2**3
+ 14 .debug_aranges 00002060  00000000  00000000  00044e30  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_rnglists 00001921  00000000  00000000  00046e50  2**0
+ 15 .debug_rnglists 00001921  00000000  00000000  00046e90  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  0001edfc  00000000  00000000  00048771  2**0
+ 16 .debug_macro  0001ee08  00000000  00000000  000487b1  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   00027cfa  00000000  00000000  0006756d  2**0
+ 17 .debug_line   00027cfa  00000000  00000000  000675b9  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    000b0d59  00000000  00000000  0008f267  2**0
+ 18 .debug_str    000b0d75  00000000  00000000  0008f2b3  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000043  00000000  00000000  0013ffc0  2**0
+ 19 .comment      00000043  00000000  00000000  00140028  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00009500  00000000  00000000  00140004  2**2
+ 20 .debug_frame  00009500  00000000  00000000  0014006c  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 0000004f  00000000  00000000  00149504  2**0
+ 21 .debug_line_str 0000004f  00000000  00000000  0014956c  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -1519,14 +1519,14 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc) {
 	// Convertion lecture ADC a courant en ampere
 	// Pour l'instant j'ai fait l'assumision que pour 1.5A (I_MAX) -> 4095 et 0A -> 0
 
-	courant = 3.0f * ((float)adc_raw / 4095.0f);
+	courant = I_MAX * ((float)adc_raw / ADC_MAX);
  8001090:	4b14      	ldr	r3, [pc, #80]	@ (80010e4 <HAL_ADC_ConvCpltCallback+0x5c>)
  8001092:	681b      	ldr	r3, [r3, #0]
  8001094:	ee07 3a90 	vmov	s15, r3
  8001098:	eeb8 7a67 	vcvt.f32.u32	s14, s15
  800109c:	eddf 6a12 	vldr	s13, [pc, #72]	@ 80010e8 <HAL_ADC_ConvCpltCallback+0x60>
  80010a0:	eec7 7a26 	vdiv.f32	s15, s14, s13
- 80010a4:	eeb0 7a08 	vmov.f32	s14, #8	@ 0x40400000  3.0
+ 80010a4:	eeb7 7a08 	vmov.f32	s14, #120	@ 0x3fc00000  1.5
  80010a8:	ee67 7a87 	vmul.f32	s15, s15, s14
  80010ac:	4b0f      	ldr	r3, [pc, #60]	@ (80010ec <HAL_ADC_ConvCpltCallback+0x64>)
  80010ae:	edc3 7a00 	vstr	s15, [r3]
@@ -2069,13 +2069,13 @@ void MX_FREERTOS_Init(void) {
  8001488:	20000570 	.word	0x20000570
  800148c:	08012294 	.word	0x08012294
  8001490:	080014b1 	.word	0x080014b1
- 8001494:	20000580 	.word	0x20000580
+ 8001494:	20000584 	.word	0x20000584
  8001498:	080122b8 	.word	0x080122b8
  800149c:	08001529 	.word	0x08001529
- 80014a0:	20000584 	.word	0x20000584
+ 80014a0:	20000588 	.word	0x20000588
  80014a4:	080122dc 	.word	0x080122dc
  80014a8:	080015d1 	.word	0x080015d1
- 80014ac:	20000588 	.word	0x20000588
+ 80014ac:	2000058c 	.word	0x2000058c
 
 080014b0 <ctrl_courant>:
   * @param  argument: Not used
@@ -2225,9 +2225,9 @@ void ctrl_position(void *argument)
  80015cc:	20000578 	.word	0x20000578
 
 080015d0 <test_task>:
+* @retval None
+*/
 /* USER CODE END Header_test_task */
-
-static float duty = 0;
 
 void test_task(void *argument)
 {
@@ -2293,7 +2293,7 @@ void test_task(void *argument)
  8001652:	bf00      	nop
  8001654:	20000678 	.word	0x20000678
  8001658:	42c80000 	.word	0x42c80000
- 800165c:	2000058c 	.word	0x2000058c
+ 800165c:	20000580 	.word	0x20000580
  8001660:	08012270 	.word	0x08012270
  8001664:	20000708 	.word	0x20000708
 
