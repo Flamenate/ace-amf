@@ -180,7 +180,6 @@ void ctrl_courant(void *argument)
 
     puissance = courant * consigne_tension;
     tension_fil = consigne_tension;
-
   }
   /* USER CODE END ctrl_courant */
 }
@@ -238,8 +237,7 @@ void test_task(void *argument)
   while (1) {
     vTaskDelay(200);
     //HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
-    duty = 100.0f * (float)htim3.Instance->CCR1 / (float)htim3.Instance->ARR;
-    n = snprintf(cadena, sizeof(cadena), "duty = %f\n", duty);
+    n = snprintf(cadena, sizeof(cadena), "I = %f\n", courant);
     HAL_UART_Transmit(&huart2, (uint8_t *)cadena, n, 100);
   }
   /* USER CODE END test_task */

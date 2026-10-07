@@ -1,6 +1,7 @@
 #include "controle.h"
 #include "main.h"
 #include "tim.h"
+#include "adc.h"
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc) {
 	//HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
@@ -9,6 +10,9 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc) {
 	// Pour l'instant j'ai fait l'assumision que pour 1.5A (I_MAX) -> 4095 et 0A -> 0
 
 	courant = I_MAX * ((float)adc_raw / ADC_MAX);
+
+	HAL_ADC_Start_DMA(&hadc1, &adc_raw, 1);
+	__HAL_DMA_DISABLE_IT(hadc1.DMA_Handle, DMA_IT_HT);
 
 	// POUR TESTING VITESSE DU SEMAPHORE
 	BaseType_t xHigherPriorityTaskWoken = pdFALSE;
