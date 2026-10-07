@@ -1,0 +1,2500 @@
+[
+    {
+        "id": "290a824f3a4c06df",
+        "type": "tab",
+        "label": "ACE",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "68390b189a7765a3",
+        "type": "acquisition in",
+        "z": "290a824f3a4c06df",
+        "name": "In",
+        "probeconfig": "68da3817de4a7554",
+        "x": 70,
+        "y": 180,
+        "wires": [
+            [
+                "f0af73700f0785d4",
+                "271135768aa618b7"
+            ],
+            [
+                "d09f5f0784e724ab",
+                "b9ac4368e01a842c"
+            ]
+        ]
+    },
+    {
+        "id": "fdda96f6cb54d7d6",
+        "type": "acquisition out",
+        "z": "290a824f3a4c06df",
+        "name": "Out",
+        "probeconfig": "68da3817de4a7554",
+        "x": 930,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "04d61d92a70536d0",
+        "type": "ui-button",
+        "z": "290a824f3a4c06df",
+        "group": "0179946a8e94b94a",
+        "name": "START",
+        "label": "START",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "{\"COMMAND\": 1}",
+        "payloadType": "json",
+        "topic": "start",
+        "topicType": "str",
+        "buttonColor": "green",
+        "textColor": "white",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 180,
+        "y": 460,
+        "wires": [
+            [
+                "0f02aec906f194b7"
+            ]
+        ]
+    },
+    {
+        "id": "86bcee3181154b23",
+        "type": "ui-button",
+        "z": "290a824f3a4c06df",
+        "group": "0179946a8e94b94a",
+        "name": "STOP",
+        "label": "STOP",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "emulateClick": false,
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "iconPosition": "left",
+        "payload": "{\"COMMAND\": 0}",
+        "payloadType": "str",
+        "topic": "stop",
+        "topicType": "str",
+        "buttonColor": "red",
+        "textColor": "white",
+        "iconColor": "",
+        "enableClick": true,
+        "enablePointerdown": false,
+        "pointerdownPayload": "",
+        "pointerdownPayloadType": "str",
+        "enablePointerup": false,
+        "pointerupPayload": "",
+        "pointerupPayloadType": "str",
+        "x": 170,
+        "y": 540,
+        "wires": [
+            [
+                "0f02aec906f194b7"
+            ]
+        ]
+    },
+    {
+        "id": "a585a4ed955769cb",
+        "type": "ui-slider",
+        "z": "290a824f3a4c06df",
+        "group": "0179946a8e94b94a",
+        "name": "Position Désirée",
+        "label": "Position Désirée",
+        "tooltip": "",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "outs": "all",
+        "topic": "write",
+        "topicType": "str",
+        "thumbLabel": "true",
+        "showTicks": "false",
+        "min": "50",
+        "max": "200",
+        "step": 1,
+        "className": "",
+        "iconPrepend": "",
+        "iconAppend": "",
+        "color": "",
+        "colorTrack": "",
+        "colorThumb": "",
+        "showTextField": false,
+        "x": 160,
+        "y": 640,
+        "wires": [
+            [
+                "8412d186d0ba95a6"
+            ]
+        ]
+    },
+    {
+        "id": "271135768aa618b7",
+        "type": "ui-text",
+        "z": "290a824f3a4c06df",
+        "group": "11ba5e3dfe6326f4",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "Statut",
+        "label": "Statut: ",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#717171",
+        "wrapText": false,
+        "className": "",
+        "value": "payload.status",
+        "valueType": "msg",
+        "x": 210,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "d245a6660bd0808b",
+        "type": "ui-chart",
+        "z": "290a824f3a4c06df",
+        "d": true,
+        "group": "11ba5e3dfe6326f4",
+        "name": "Temperature Ressort (??)",
+        "label": "Temperature Ressort AMF",
+        "order": 4,
+        "chartType": "line",
+        "category": "topic",
+        "categoryType": "msg",
+        "xAxisLabel": "Temps",
+        "xAxisProperty": "",
+        "xAxisPropertyType": "timestamp",
+        "xAxisType": "time",
+        "xAxisFormat": "",
+        "xAxisFormatType": "auto",
+        "xmin": "",
+        "xmax": "",
+        "yAxisLabel": "Temperature",
+        "yAxisProperty": "payload",
+        "yAxisPropertyType": "msg",
+        "ymin": "",
+        "ymax": "",
+        "bins": 10,
+        "action": "append",
+        "stackSeries": false,
+        "pointShape": "circle",
+        "pointRadius": 4,
+        "showLegend": true,
+        "removeOlder": 1,
+        "removeOlderUnit": "60",
+        "removeOlderPoints": "",
+        "colors": [
+            "#0095ff",
+            "#ff0000",
+            "#ff7f0e",
+            "#2ca02c",
+            "#a347e1",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "textColor": [
+            "#666666"
+        ],
+        "textColorDefault": true,
+        "gridColor": [
+            "#e5e5e5"
+        ],
+        "gridColorDefault": true,
+        "width": 6,
+        "height": 8,
+        "className": "",
+        "interpolation": "smooth",
+        "x": 530,
+        "y": 40,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f81e46d74d6af12d",
+        "type": "ui-chart",
+        "z": "290a824f3a4c06df",
+        "group": "11ba5e3dfe6326f4",
+        "name": "Courant",
+        "label": "Courant (Intensité)",
+        "order": 5,
+        "chartType": "line",
+        "category": "topic",
+        "categoryType": "msg",
+        "xAxisLabel": "Temps",
+        "xAxisProperty": "",
+        "xAxisPropertyType": "timestamp",
+        "xAxisType": "time",
+        "xAxisFormat": "",
+        "xAxisFormatType": "auto",
+        "xmin": "",
+        "xmax": "",
+        "yAxisLabel": "Intensité (A)",
+        "yAxisProperty": "payload",
+        "yAxisPropertyType": "msg",
+        "ymin": "0",
+        "ymax": "1.5",
+        "bins": 10,
+        "action": "append",
+        "stackSeries": false,
+        "pointShape": "circle",
+        "pointRadius": 4,
+        "showLegend": true,
+        "removeOlder": 1,
+        "removeOlderUnit": "60",
+        "removeOlderPoints": "",
+        "colors": [
+            "#0095ff",
+            "#ff0000",
+            "#ff7f0e",
+            "#2ca02c",
+            "#a347e1",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "textColor": [
+            "#666666"
+        ],
+        "textColorDefault": true,
+        "gridColor": [
+            "#e5e5e5"
+        ],
+        "gridColorDefault": true,
+        "width": 6,
+        "height": 8,
+        "className": "",
+        "interpolation": "smooth",
+        "x": 740,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "46181a740bd8b088",
+        "type": "ui-gauge",
+        "z": "290a824f3a4c06df",
+        "name": "Position Actuelle",
+        "group": "11ba5e3dfe6326f4",
+        "order": 2,
+        "value": "payload",
+        "valueType": "msg",
+        "width": 3,
+        "height": 3,
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "Position Actuelle",
+        "alwaysShowTitle": false,
+        "floatingTitlePosition": "top-left",
+        "units": "cm",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#5cd65c",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "4",
+                "color": "#ffc800",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "7",
+                "color": "#ea5353",
+                "text": "",
+                "textType": "label"
+            }
+        ],
+        "min": "50",
+        "max": "200",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 760,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dec99c05c4aa70c7",
+        "type": "ui-progress",
+        "z": "290a824f3a4c06df",
+        "group": "11ba5e3dfe6326f4",
+        "name": "PWM",
+        "label": "PWM",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "color": "",
+        "className": "",
+        "x": 730,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "d09f5f0784e724ab",
+        "type": "ui_text",
+        "z": "290a824f3a4c06df",
+        "group": "f9c34dde.1e2f4",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Errors",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 110,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "0f02aec906f194b7",
+        "type": "variables",
+        "z": "290a824f3a4c06df",
+        "groupname": "variables",
+        "accesspoint": 0,
+        "execonfig": "d427aabeb6ed4f1f",
+        "variablelist": [],
+        "triggerstartmode": "manual",
+        "triggername": "consigne_position",
+        "triggerthreshold": "",
+        "frequency": "",
+        "frequencyType": "0",
+        "snapshotheader": "",
+        "mode": "direct",
+        "lastImportedTime": 1791386628286,
+        "openStatus": false,
+        "x": 620,
+        "y": 560,
+        "wires": [
+            [
+                "983de4708f464f3a",
+                "fdda96f6cb54d7d6"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "f0af73700f0785d4",
+        "type": "processing",
+        "z": "290a824f3a4c06df",
+        "groupname": "variables",
+        "groupid": "0f02aec906f194b7",
+        "expressions": [],
+        "statistics": [],
+        "logmode": "no",
+        "logformat": "stcm",
+        "x": 260,
+        "y": 180,
+        "wires": [
+            [
+                "5b12902d4fa38fa1",
+                "245d2cf01db8cc77",
+                "db41f7653fd85d25",
+                "10a2de46446a29fe",
+                "f6b5324bd4b6d513"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "5b12902d4fa38fa1",
+        "type": "function",
+        "z": "290a824f3a4c06df",
+        "name": "read last consig_pos value",
+        "func": "if (msg.payload.variablename == \"consigne_position\")\n    return { payload: msg.payload.variabledata.at(-1).y };",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 180,
+        "wires": [
+            [
+                "c2590880e81e34d7"
+            ]
+        ]
+    },
+    {
+        "id": "983de4708f464f3a",
+        "type": "ui_write",
+        "z": "290a824f3a4c06df",
+        "group": "f9c34dde.1e2f4",
+        "name": "",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "x": 750,
+        "y": 420,
+        "wires": [
+            [
+                "fdda96f6cb54d7d6"
+            ]
+        ]
+    },
+    {
+        "id": "f73a467fb975e31a",
+        "type": "ui_button",
+        "z": "290a824f3a4c06df",
+        "name": "",
+        "group": "f9c34dde.1e2f4",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "start",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "start",
+        "topicType": "str",
+        "x": 470,
+        "y": 460,
+        "wires": [
+            [
+                "0f02aec906f194b7"
+            ]
+        ]
+    },
+    {
+        "id": "d943afb4488f6406",
+        "type": "ui_button",
+        "z": "290a824f3a4c06df",
+        "name": "",
+        "group": "f9c34dde.1e2f4",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "stop",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "stop",
+        "topicType": "str",
+        "x": 470,
+        "y": 500,
+        "wires": [
+            [
+                "0f02aec906f194b7"
+            ]
+        ]
+    },
+    {
+        "id": "8412d186d0ba95a6",
+        "type": "function",
+        "z": "290a824f3a4c06df",
+        "name": "write consigne_position",
+        "func": "msg.payload = {\n    variablelist: [\n        {\n            address: \"0x20000000\",\n            type: 3,\n            value: msg.payload.toString(),\n            name: \"consigne_position\",\n            checked: true,\n            validity: true,\n            $$hashkey: \"object: 340\"\n        }\n    ],\n    accesspoint: 0\n};\n\nmsg.topic = \"write\";\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 630,
+        "y": 640,
+        "wires": [
+            [
+                "fdda96f6cb54d7d6"
+            ]
+        ]
+    },
+    {
+        "id": "245d2cf01db8cc77",
+        "type": "function",
+        "z": "290a824f3a4c06df",
+        "name": "read last duty value",
+        "func": "if (msg.payload.variablename == \"duty\")\n    return { payload: msg.payload.variabledata.at(-1).y };",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 220,
+        "wires": [
+            [
+                "dec99c05c4aa70c7"
+            ]
+        ]
+    },
+    {
+        "id": "b9ac4368e01a842c",
+        "type": "ui-text",
+        "z": "290a824f3a4c06df",
+        "group": "11ba5e3dfe6326f4",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "name": "Errors",
+        "label": "Errors",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "style": true,
+        "font": "Lucida Sans Typewriter,Lucida Console,Monaco,monospace",
+        "fontSize": 16,
+        "color": "#c70000",
+        "wrapText": false,
+        "className": "",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 230,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "db41f7653fd85d25",
+        "type": "function",
+        "z": "290a824f3a4c06df",
+        "name": "read last courant value",
+        "func": "if (msg.payload.variablename == \"courant\")\n    return { payload: msg.payload.variabledata.at(-1).y };",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 500,
+        "y": 260,
+        "wires": [
+            [
+                "f81e46d74d6af12d"
+            ]
+        ]
+    },
+    {
+        "id": "e0ff864ffb777c27",
+        "type": "ui-chart",
+        "z": "290a824f3a4c06df",
+        "group": "11ba5e3dfe6326f4",
+        "name": "Puissance",
+        "label": "Puissance",
+        "order": 5,
+        "chartType": "line",
+        "category": "topic",
+        "categoryType": "msg",
+        "xAxisLabel": "Temps",
+        "xAxisProperty": "",
+        "xAxisPropertyType": "timestamp",
+        "xAxisType": "time",
+        "xAxisFormat": "",
+        "xAxisFormatType": "auto",
+        "xmin": "",
+        "xmax": "",
+        "yAxisLabel": "Puissance (W)",
+        "yAxisProperty": "payload",
+        "yAxisPropertyType": "msg",
+        "ymin": "0",
+        "ymax": "5",
+        "bins": 10,
+        "action": "append",
+        "stackSeries": false,
+        "pointShape": "circle",
+        "pointRadius": 4,
+        "showLegend": true,
+        "removeOlder": 1,
+        "removeOlderUnit": "3600",
+        "removeOlderPoints": "",
+        "colors": [
+            "#0095ff",
+            "#ff0000",
+            "#ff7f0e",
+            "#2ca02c",
+            "#a347e1",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "textColor": [
+            "#666666"
+        ],
+        "textColorDefault": true,
+        "gridColor": [
+            "#e5e5e5"
+        ],
+        "gridColorDefault": true,
+        "width": 6,
+        "height": 8,
+        "className": "",
+        "interpolation": "smooth",
+        "x": 750,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "10a2de46446a29fe",
+        "type": "function",
+        "z": "290a824f3a4c06df",
+        "name": "read last puissance value",
+        "func": "if (msg.payload.variablename == \"courant\")\n    return { payload: msg.payload.variabledata.at(-1).y };",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 510,
+        "y": 300,
+        "wires": [
+            [
+                "e0ff864ffb777c27"
+            ]
+        ]
+    },
+    {
+        "id": "f6b5324bd4b6d513",
+        "type": "function",
+        "z": "290a824f3a4c06df",
+        "name": "read last tension fil value",
+        "func": "if (msg.payload.variablename == \"tension_fil\")\n    return { payload: msg.payload.variabledata.at(-1).y };",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 510,
+        "y": 340,
+        "wires": [
+            [
+                "83a159c9771ea754"
+            ]
+        ]
+    },
+    {
+        "id": "83a159c9771ea754",
+        "type": "ui-chart",
+        "z": "290a824f3a4c06df",
+        "group": "11ba5e3dfe6326f4",
+        "name": "Tension Fil",
+        "label": "Tension Fil",
+        "order": 5,
+        "chartType": "line",
+        "category": "topic",
+        "categoryType": "msg",
+        "xAxisLabel": "Temps",
+        "xAxisProperty": "",
+        "xAxisPropertyType": "timestamp",
+        "xAxisType": "time",
+        "xAxisFormat": "",
+        "xAxisFormatType": "auto",
+        "xmin": "",
+        "xmax": "",
+        "yAxisLabel": "Tension (V)",
+        "yAxisProperty": "payload",
+        "yAxisPropertyType": "msg",
+        "ymin": "0",
+        "ymax": "5",
+        "bins": 10,
+        "action": "append",
+        "stackSeries": false,
+        "pointShape": "circle",
+        "pointRadius": 4,
+        "showLegend": true,
+        "removeOlder": 1,
+        "removeOlderUnit": "60",
+        "removeOlderPoints": "",
+        "colors": [
+            "#0095ff",
+            "#ff0000",
+            "#ff7f0e",
+            "#2ca02c",
+            "#a347e1",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "textColor": [
+            "#666666"
+        ],
+        "textColorDefault": true,
+        "gridColor": [
+            "#e5e5e5"
+        ],
+        "gridColorDefault": true,
+        "width": 6,
+        "height": 8,
+        "className": "",
+        "interpolation": "smooth",
+        "x": 750,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c2590880e81e34d7",
+        "type": "ui-gauge",
+        "z": "290a824f3a4c06df",
+        "name": "Consigne Position",
+        "group": "11ba5e3dfe6326f4",
+        "order": 2,
+        "value": "payload",
+        "valueType": "msg",
+        "width": 3,
+        "height": 3,
+        "gtype": "gauge-half",
+        "gstyle": "needle",
+        "title": "Consigne Position",
+        "alwaysShowTitle": false,
+        "floatingTitlePosition": "top-left",
+        "units": "cm",
+        "icon": "",
+        "prefix": "",
+        "suffix": "",
+        "segments": [
+            {
+                "from": "0",
+                "color": "#5cd65c",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "4",
+                "color": "#ffc800",
+                "text": "",
+                "textType": "label"
+            },
+            {
+                "from": "7",
+                "color": "#ea5353",
+                "text": "",
+                "textType": "label"
+            }
+        ],
+        "min": "50",
+        "max": "200",
+        "sizeThickness": 16,
+        "sizeGap": 4,
+        "sizeKeyThickness": 8,
+        "styleRounded": true,
+        "styleGlow": false,
+        "className": "",
+        "x": 770,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "59db947d546cc1f7",
+        "type": "function",
+        "z": "290a824f3a4c06df",
+        "name": "read last pos value",
+        "func": "if (msg.payload.variablename == \"position\")\n    return { payload: msg.payload.variabledata.at(-1).y };",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 140,
+        "wires": [
+            [
+                "46181a740bd8b088"
+            ]
+        ]
+    },
+    {
+        "id": "68da3817de4a7554",
+        "type": "probe",
+        "probeid": "0669FF545453726687085235",
+        "probename": "ST-Link v2 0669FF545453726687085235",
+        "protocol": "SWD",
+        "frequency": "1.8 MHz - Default",
+        "probeproperty": "{\"SWD\":[\"4.6 MHz\",\"1.8 MHz - Default\",\"950 kHz\",\"400 kHz\",\"150 kHz\"],\"JTAG\":[\"18 MHz\",\"9 MHz\",\"4.5 MHz\",\"2.25 MHz\",\"1.12 MHz - Default\",\"560 kHz\",\"280 kHz\",\"140 kHz\"]}",
+        "probeversion": "ST Link firmware version V2.J47",
+        "connectionType": "p2p",
+        "nickname": ""
+    },
+    {
+        "id": "0179946a8e94b94a",
+        "type": "ui-group",
+        "name": "Input",
+        "page": "486977ab13fc8ba6",
+        "width": 6,
+        "height": 1,
+        "order": 1,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "11ba5e3dfe6326f4",
+        "type": "ui-group",
+        "name": "Output",
+        "page": "486977ab13fc8ba6",
+        "width": 6,
+        "height": 1,
+        "order": 2,
+        "showTitle": true,
+        "className": "",
+        "visible": "true",
+        "disabled": "false",
+        "groupType": "default"
+    },
+    {
+        "id": "f9c34dde.1e2f4",
+        "type": "ui_group",
+        "name": "Chart",
+        "tab": "17d09b07.741a55",
+        "order": 1,
+        "disp": true,
+        "width": 15,
+        "collapse": false
+    },
+    {
+        "id": "d427aabeb6ed4f1f",
+        "type": "exe-config",
+        "name": "AMF",
+        "exefile": "D:\\projects\\ace-amf\\AMF\\Debug\\AMF.elf",
+        "exefolder": "D:\\projects\\ace-amf\\AMF\\Debug",
+        "exevariablelist": [
+            {
+                "address": "0x2000062c",
+                "name": "__sbrk_heap_end",
+                "type": 5
+            },
+            {
+                "address": "0x200007c0",
+                "name": "_I2CBuffer[0]",
+                "type": 1
+            },
+            {
+                "address": "0x2000056c",
+                "name": "adc_raw",
+                "type": 5
+            },
+            {
+                "address": "0x080123f8",
+                "name": "AHBPrescTable[0]",
+                "type": 1
+            },
+            {
+                "address": "0x08012408",
+                "name": "APBPrescTable[0]",
+                "type": 1
+            },
+            {
+                "address": "0x08012390",
+                "name": "boucle_courant_attributes.attr_bits",
+                "type": 5
+            },
+            {
+                "address": "0x08012394",
+                "name": "boucle_courant_attributes.cb_mem",
+                "type": 5
+            },
+            {
+                "address": "0x08012398",
+                "name": "boucle_courant_attributes.cb_size",
+                "type": 5
+            },
+            {
+                "address": "0x0801238c",
+                "name": "boucle_courant_attributes.name",
+                "type": 5
+            },
+            {
+                "address": "0x080123a4",
+                "name": "boucle_courant_attributes.priority",
+                "type": 4
+            },
+            {
+                "address": "0x080123ac",
+                "name": "boucle_courant_attributes.reserved",
+                "type": 5
+            },
+            {
+                "address": "0x0801239c",
+                "name": "boucle_courant_attributes.stack_mem",
+                "type": 5
+            },
+            {
+                "address": "0x080123a0",
+                "name": "boucle_courant_attributes.stack_size",
+                "type": 5
+            },
+            {
+                "address": "0x080123a8",
+                "name": "boucle_courant_attributes.tz_module",
+                "type": 5
+            },
+            {
+                "address": "0x20000584",
+                "name": "boucle_courantHandle",
+                "type": 5
+            },
+            {
+                "address": "0x080123b4",
+                "name": "boucle_position_attributes.attr_bits",
+                "type": 5
+            },
+            {
+                "address": "0x080123b8",
+                "name": "boucle_position_attributes.cb_mem",
+                "type": 5
+            },
+            {
+                "address": "0x080123bc",
+                "name": "boucle_position_attributes.cb_size",
+                "type": 5
+            },
+            {
+                "address": "0x080123b0",
+                "name": "boucle_position_attributes.name",
+                "type": 5
+            },
+            {
+                "address": "0x080123c8",
+                "name": "boucle_position_attributes.priority",
+                "type": 4
+            },
+            {
+                "address": "0x080123d0",
+                "name": "boucle_position_attributes.reserved",
+                "type": 5
+            },
+            {
+                "address": "0x080123c0",
+                "name": "boucle_position_attributes.stack_mem",
+                "type": 5
+            },
+            {
+                "address": "0x080123c4",
+                "name": "boucle_position_attributes.stack_size",
+                "type": 5
+            },
+            {
+                "address": "0x080123cc",
+                "name": "boucle_position_attributes.tz_module",
+                "type": 5
+            },
+            {
+                "address": "0x20000588",
+                "name": "boucle_positionHandle",
+                "type": 5
+            },
+            {
+                "address": "0x20000000",
+                "name": "consigne_position",
+                "type": 3,
+                "checked": true
+            },
+            {
+                "address": "0x20000570",
+                "name": "consigne_puissance",
+                "type": 9,
+                "checked": false
+            },
+            {
+                "address": "0x20000574",
+                "name": "courant",
+                "type": 9,
+                "checked": true
+            },
+            {
+                "address": "0x20000008",
+                "name": "DefaultTuningSettings[0]",
+                "type": 1
+            },
+            {
+                "address": "0x2000057c",
+                "name": "duty",
+                "type": 9,
+                "checked": true
+            },
+            {
+                "address": "0x200004ec",
+                "name": "hadc1.DMA_Handle",
+                "type": 5
+            },
+            {
+                "address": "0x200004f8",
+                "name": "hadc1.ErrorCode",
+                "type": 5
+            },
+            {
+                "address": "0x200004b8",
+                "name": "hadc1.Init.ClockPrescaler",
+                "type": 5
+            },
+            {
+                "address": "0x200004cc",
+                "name": "hadc1.Init.ContinuousConvMode",
+                "type": 2
+            },
+            {
+                "address": "0x200004c0",
+                "name": "hadc1.Init.DataAlign",
+                "type": 5
+            },
+            {
+                "address": "0x200004d4",
+                "name": "hadc1.Init.DiscontinuousConvMode",
+                "type": 2
+            },
+            {
+                "address": "0x200004e4",
+                "name": "hadc1.Init.DMAContinuousRequests",
+                "type": 2
+            },
+            {
+                "address": "0x200004c8",
+                "name": "hadc1.Init.EOCSelection",
+                "type": 5
+            },
+            {
+                "address": "0x200004dc",
+                "name": "hadc1.Init.ExternalTrigConv",
+                "type": 5
+            },
+            {
+                "address": "0x200004e0",
+                "name": "hadc1.Init.ExternalTrigConvEdge",
+                "type": 5
+            },
+            {
+                "address": "0x200004d0",
+                "name": "hadc1.Init.NbrOfConversion",
+                "type": 5
+            },
+            {
+                "address": "0x200004d8",
+                "name": "hadc1.Init.NbrOfDiscConversion",
+                "type": 5
+            },
+            {
+                "address": "0x200004bc",
+                "name": "hadc1.Init.Resolution",
+                "type": 5
+            },
+            {
+                "address": "0x200004c4",
+                "name": "hadc1.Init.ScanConvMode",
+                "type": 5
+            },
+            {
+                "address": "0x200004b4",
+                "name": "hadc1.Instance",
+                "type": 5
+            },
+            {
+                "address": "0x200004f0",
+                "name": "hadc1.Lock",
+                "type": 2
+            },
+            {
+                "address": "0x200004e8",
+                "name": "hadc1.NbrOfCurrentConversionRank",
+                "type": 5
+            },
+            {
+                "address": "0x200004f4",
+                "name": "hadc1.State",
+                "type": 5
+            },
+            {
+                "address": "0x20000550",
+                "name": "hdma_adc1.ErrorCode",
+                "type": 5
+            },
+            {
+                "address": "0x20000500",
+                "name": "hdma_adc1.Init.Channel",
+                "type": 5
+            },
+            {
+                "address": "0x20000504",
+                "name": "hdma_adc1.Init.Direction",
+                "type": 5
+            },
+            {
+                "address": "0x20000520",
+                "name": "hdma_adc1.Init.FIFOMode",
+                "type": 5
+            },
+            {
+                "address": "0x20000524",
+                "name": "hdma_adc1.Init.FIFOThreshold",
+                "type": 5
+            },
+            {
+                "address": "0x20000528",
+                "name": "hdma_adc1.Init.MemBurst",
+                "type": 5
+            },
+            {
+                "address": "0x20000514",
+                "name": "hdma_adc1.Init.MemDataAlignment",
+                "type": 5
+            },
+            {
+                "address": "0x2000050c",
+                "name": "hdma_adc1.Init.MemInc",
+                "type": 5
+            },
+            {
+                "address": "0x20000518",
+                "name": "hdma_adc1.Init.Mode",
+                "type": 5
+            },
+            {
+                "address": "0x2000052c",
+                "name": "hdma_adc1.Init.PeriphBurst",
+                "type": 5
+            },
+            {
+                "address": "0x20000510",
+                "name": "hdma_adc1.Init.PeriphDataAlignment",
+                "type": 5
+            },
+            {
+                "address": "0x20000508",
+                "name": "hdma_adc1.Init.PeriphInc",
+                "type": 5
+            },
+            {
+                "address": "0x2000051c",
+                "name": "hdma_adc1.Init.Priority",
+                "type": 5
+            },
+            {
+                "address": "0x200004fc",
+                "name": "hdma_adc1.Instance",
+                "type": 5
+            },
+            {
+                "address": "0x20000530",
+                "name": "hdma_adc1.Lock",
+                "type": 2
+            },
+            {
+                "address": "0x20000534",
+                "name": "hdma_adc1.Parent",
+                "type": 5
+            },
+            {
+                "address": "0x20000531",
+                "name": "hdma_adc1.State",
+                "type": 2
+            },
+            {
+                "address": "0x20000554",
+                "name": "hdma_adc1.StreamBaseAddress",
+                "type": 5
+            },
+            {
+                "address": "0x20000558",
+                "name": "hdma_adc1.StreamIndex",
+                "type": 5
+            },
+            {
+                "address": "0x2000054c",
+                "name": "hdma_adc1.XferAbortCallback",
+                "type": 5
+            },
+            {
+                "address": "0x20000538",
+                "name": "hdma_adc1.XferCpltCallback",
+                "type": 5
+            },
+            {
+                "address": "0x20000548",
+                "name": "hdma_adc1.XferErrorCallback",
+                "type": 5
+            },
+            {
+                "address": "0x2000053c",
+                "name": "hdma_adc1.XferHalfCpltCallback",
+                "type": 5
+            },
+            {
+                "address": "0x20000540",
+                "name": "hdma_adc1.XferM1CpltCallback",
+                "type": 5
+            },
+            {
+                "address": "0x20000544",
+                "name": "hdma_adc1.XferM1HalfCpltCallback",
+                "type": 5
+            },
+            {
+                "address": "0x200007a4",
+                "name": "hdma_usart2_rx.ErrorCode",
+                "type": 5
+            },
+            {
+                "address": "0x20000754",
+                "name": "hdma_usart2_rx.Init.Channel",
+                "type": 5
+            },
+            {
+                "address": "0x20000758",
+                "name": "hdma_usart2_rx.Init.Direction",
+                "type": 5
+            },
+            {
+                "address": "0x20000774",
+                "name": "hdma_usart2_rx.Init.FIFOMode",
+                "type": 5
+            },
+            {
+                "address": "0x20000778",
+                "name": "hdma_usart2_rx.Init.FIFOThreshold",
+                "type": 5
+            },
+            {
+                "address": "0x2000077c",
+                "name": "hdma_usart2_rx.Init.MemBurst",
+                "type": 5
+            },
+            {
+                "address": "0x20000768",
+                "name": "hdma_usart2_rx.Init.MemDataAlignment",
+                "type": 5
+            },
+            {
+                "address": "0x20000760",
+                "name": "hdma_usart2_rx.Init.MemInc",
+                "type": 5
+            },
+            {
+                "address": "0x2000076c",
+                "name": "hdma_usart2_rx.Init.Mode",
+                "type": 5
+            },
+            {
+                "address": "0x20000780",
+                "name": "hdma_usart2_rx.Init.PeriphBurst",
+                "type": 5
+            },
+            {
+                "address": "0x20000764",
+                "name": "hdma_usart2_rx.Init.PeriphDataAlignment",
+                "type": 5
+            },
+            {
+                "address": "0x2000075c",
+                "name": "hdma_usart2_rx.Init.PeriphInc",
+                "type": 5
+            },
+            {
+                "address": "0x20000770",
+                "name": "hdma_usart2_rx.Init.Priority",
+                "type": 5
+            },
+            {
+                "address": "0x20000750",
+                "name": "hdma_usart2_rx.Instance",
+                "type": 5
+            },
+            {
+                "address": "0x20000784",
+                "name": "hdma_usart2_rx.Lock",
+                "type": 2
+            },
+            {
+                "address": "0x20000788",
+                "name": "hdma_usart2_rx.Parent",
+                "type": 5
+            },
+            {
+                "address": "0x20000785",
+                "name": "hdma_usart2_rx.State",
+                "type": 2
+            },
+            {
+                "address": "0x200007a8",
+                "name": "hdma_usart2_rx.StreamBaseAddress",
+                "type": 5
+            },
+            {
+                "address": "0x200007ac",
+                "name": "hdma_usart2_rx.StreamIndex",
+                "type": 5
+            },
+            {
+                "address": "0x200007a0",
+                "name": "hdma_usart2_rx.XferAbortCallback",
+                "type": 5
+            },
+            {
+                "address": "0x2000078c",
+                "name": "hdma_usart2_rx.XferCpltCallback",
+                "type": 5
+            },
+            {
+                "address": "0x2000079c",
+                "name": "hdma_usart2_rx.XferErrorCallback",
+                "type": 5
+            },
+            {
+                "address": "0x20000790",
+                "name": "hdma_usart2_rx.XferHalfCpltCallback",
+                "type": 5
+            },
+            {
+                "address": "0x20000794",
+                "name": "hdma_usart2_rx.XferM1CpltCallback",
+                "type": 5
+            },
+            {
+                "address": "0x20000798",
+                "name": "hdma_usart2_rx.XferM1HalfCpltCallback",
+                "type": 5
+            },
+            {
+                "address": "0x200005d4",
+                "name": "hi2c1.Devaddress",
+                "type": 5
+            },
+            {
+                "address": "0x200005d0",
+                "name": "hi2c1.ErrorCode",
+                "type": 5
+            },
+            {
+                "address": "0x200005e0",
+                "name": "hi2c1.EventCount",
+                "type": 5
+            },
+            {
+                "address": "0x200005c8",
+                "name": "hi2c1.hdmarx",
+                "type": 5
+            },
+            {
+                "address": "0x200005c4",
+                "name": "hi2c1.hdmatx",
+                "type": 5
+            },
+            {
+                "address": "0x200005a0",
+                "name": "hi2c1.Init.AddressingMode",
+                "type": 5
+            },
+            {
+                "address": "0x20000594",
+                "name": "hi2c1.Init.ClockSpeed",
+                "type": 5
+            },
+            {
+                "address": "0x200005a4",
+                "name": "hi2c1.Init.DualAddressMode",
+                "type": 5
+            },
+            {
+                "address": "0x20000598",
+                "name": "hi2c1.Init.DutyCycle",
+                "type": 5
+            },
+            {
+                "address": "0x200005ac",
+                "name": "hi2c1.Init.GeneralCallMode",
+                "type": 5
+            },
+            {
+                "address": "0x200005b0",
+                "name": "hi2c1.Init.NoStretchMode",
+                "type": 5
+            },
+            {
+                "address": "0x2000059c",
+                "name": "hi2c1.Init.OwnAddress1",
+                "type": 5
+            },
+            {
+                "address": "0x200005a8",
+                "name": "hi2c1.Init.OwnAddress2",
+                "type": 5
+            },
+            {
+                "address": "0x20000590",
+                "name": "hi2c1.Instance",
+                "type": 5
+            },
+            {
+                "address": "0x200005cc",
+                "name": "hi2c1.Lock",
+                "type": 2
+            },
+            {
+                "address": "0x200005d8",
+                "name": "hi2c1.Memaddress",
+                "type": 5
+            },
+            {
+                "address": "0x200005dc",
+                "name": "hi2c1.MemaddSize",
+                "type": 5
+            },
+            {
+                "address": "0x200005ce",
+                "name": "hi2c1.Mode",
+                "type": 2
+            },
+            {
+                "address": "0x200005b4",
+                "name": "hi2c1.pBuffPtr",
+                "type": 5
+            },
+            {
+                "address": "0x200005c0",
+                "name": "hi2c1.PreviousState",
+                "type": 5
+            },
+            {
+                "address": "0x200005cd",
+                "name": "hi2c1.State",
+                "type": 2
+            },
+            {
+                "address": "0x200005ba",
+                "name": "hi2c1.XferCount",
+                "type": 3
+            },
+            {
+                "address": "0x200005bc",
+                "name": "hi2c1.XferOptions",
+                "type": 5
+            },
+            {
+                "address": "0x200005b8",
+                "name": "hi2c1.XferSize",
+                "type": 3
+            },
+            {
+                "address": "0x20000600",
+                "name": "htim11.Channel",
+                "type": 2
+            },
+            {
+                "address": "0x20000626",
+                "name": "htim11.ChannelNState[0]",
+                "type": 2
+            },
+            {
+                "address": "0x20000622",
+                "name": "htim11.ChannelState[0]",
+                "type": 2
+            },
+            {
+                "address": "0x2000062a",
+                "name": "htim11.DMABurstState",
+                "type": 2
+            },
+            {
+                "address": "0x20000604",
+                "name": "htim11.hdma[0]",
+                "type": 5
+            },
+            {
+                "address": "0x200005fc",
+                "name": "htim11.Init.AutoReloadPreload",
+                "type": 5
+            },
+            {
+                "address": "0x200005f4",
+                "name": "htim11.Init.ClockDivision",
+                "type": 5
+            },
+            {
+                "address": "0x200005ec",
+                "name": "htim11.Init.CounterMode",
+                "type": 5
+            },
+            {
+                "address": "0x200005f0",
+                "name": "htim11.Init.Period",
+                "type": 5
+            },
+            {
+                "address": "0x200005e8",
+                "name": "htim11.Init.Prescaler",
+                "type": 5
+            },
+            {
+                "address": "0x200005f8",
+                "name": "htim11.Init.RepetitionCounter",
+                "type": 5
+            },
+            {
+                "address": "0x200005e4",
+                "name": "htim11.Instance",
+                "type": 5
+            },
+            {
+                "address": "0x20000620",
+                "name": "htim11.Lock",
+                "type": 2
+            },
+            {
+                "address": "0x20000621",
+                "name": "htim11.State",
+                "type": 2
+            },
+            {
+                "address": "0x2000064c",
+                "name": "htim2.Channel",
+                "type": 2
+            },
+            {
+                "address": "0x20000672",
+                "name": "htim2.ChannelNState[0]",
+                "type": 2
+            },
+            {
+                "address": "0x2000066e",
+                "name": "htim2.ChannelState[0]",
+                "type": 2
+            },
+            {
+                "address": "0x20000676",
+                "name": "htim2.DMABurstState",
+                "type": 2
+            },
+            {
+                "address": "0x20000650",
+                "name": "htim2.hdma[0]",
+                "type": 5
+            },
+            {
+                "address": "0x20000648",
+                "name": "htim2.Init.AutoReloadPreload",
+                "type": 5
+            },
+            {
+                "address": "0x20000640",
+                "name": "htim2.Init.ClockDivision",
+                "type": 5
+            },
+            {
+                "address": "0x20000638",
+                "name": "htim2.Init.CounterMode",
+                "type": 5
+            },
+            {
+                "address": "0x2000063c",
+                "name": "htim2.Init.Period",
+                "type": 5
+            },
+            {
+                "address": "0x20000634",
+                "name": "htim2.Init.Prescaler",
+                "type": 5
+            },
+            {
+                "address": "0x20000644",
+                "name": "htim2.Init.RepetitionCounter",
+                "type": 5
+            },
+            {
+                "address": "0x20000630",
+                "name": "htim2.Instance",
+                "type": 5
+            },
+            {
+                "address": "0x2000066c",
+                "name": "htim2.Lock",
+                "type": 2
+            },
+            {
+                "address": "0x2000066d",
+                "name": "htim2.State",
+                "type": 2
+            },
+            {
+                "address": "0x20000694",
+                "name": "htim3.Channel",
+                "type": 2
+            },
+            {
+                "address": "0x200006ba",
+                "name": "htim3.ChannelNState[0]",
+                "type": 2
+            },
+            {
+                "address": "0x200006b6",
+                "name": "htim3.ChannelState[0]",
+                "type": 2
+            },
+            {
+                "address": "0x200006be",
+                "name": "htim3.DMABurstState",
+                "type": 2
+            },
+            {
+                "address": "0x20000698",
+                "name": "htim3.hdma[0]",
+                "type": 5
+            },
+            {
+                "address": "0x20000690",
+                "name": "htim3.Init.AutoReloadPreload",
+                "type": 5
+            },
+            {
+                "address": "0x20000688",
+                "name": "htim3.Init.ClockDivision",
+                "type": 5
+            },
+            {
+                "address": "0x20000680",
+                "name": "htim3.Init.CounterMode",
+                "type": 5
+            },
+            {
+                "address": "0x20000684",
+                "name": "htim3.Init.Period",
+                "type": 5
+            },
+            {
+                "address": "0x2000067c",
+                "name": "htim3.Init.Prescaler",
+                "type": 5
+            },
+            {
+                "address": "0x2000068c",
+                "name": "htim3.Init.RepetitionCounter",
+                "type": 5
+            },
+            {
+                "address": "0x20000678",
+                "name": "htim3.Instance",
+                "type": 5
+            },
+            {
+                "address": "0x200006b4",
+                "name": "htim3.Lock",
+                "type": 2
+            },
+            {
+                "address": "0x200006b5",
+                "name": "htim3.State",
+                "type": 2
+            },
+            {
+                "address": "0x200006dc",
+                "name": "htim5.Channel",
+                "type": 2
+            },
+            {
+                "address": "0x20000702",
+                "name": "htim5.ChannelNState[0]",
+                "type": 2
+            },
+            {
+                "address": "0x200006fe",
+                "name": "htim5.ChannelState[0]",
+                "type": 2
+            },
+            {
+                "address": "0x20000706",
+                "name": "htim5.DMABurstState",
+                "type": 2
+            },
+            {
+                "address": "0x200006e0",
+                "name": "htim5.hdma[0]",
+                "type": 5
+            },
+            {
+                "address": "0x200006d8",
+                "name": "htim5.Init.AutoReloadPreload",
+                "type": 5
+            },
+            {
+                "address": "0x200006d0",
+                "name": "htim5.Init.ClockDivision",
+                "type": 5
+            },
+            {
+                "address": "0x200006c8",
+                "name": "htim5.Init.CounterMode",
+                "type": 5
+            },
+            {
+                "address": "0x200006cc",
+                "name": "htim5.Init.Period",
+                "type": 5
+            },
+            {
+                "address": "0x200006c4",
+                "name": "htim5.Init.Prescaler",
+                "type": 5
+            },
+            {
+                "address": "0x200006d4",
+                "name": "htim5.Init.RepetitionCounter",
+                "type": 5
+            },
+            {
+                "address": "0x200006c0",
+                "name": "htim5.Instance",
+                "type": 5
+            },
+            {
+                "address": "0x200006fc",
+                "name": "htim5.Lock",
+                "type": 2
+            },
+            {
+                "address": "0x200006fd",
+                "name": "htim5.State",
+                "type": 2
+            },
+            {
+                "address": "0x2000074c",
+                "name": "huart2.ErrorCode",
+                "type": 5
+            },
+            {
+                "address": "0x20000749",
+                "name": "huart2.gState",
+                "type": 2
+            },
+            {
+                "address": "0x20000744",
+                "name": "huart2.hdmarx",
+                "type": 5
+            },
+            {
+                "address": "0x20000740",
+                "name": "huart2.hdmatx",
+                "type": 5
+            },
+            {
+                "address": "0x2000070c",
+                "name": "huart2.Init.BaudRate",
+                "type": 5
+            },
+            {
+                "address": "0x20000720",
+                "name": "huart2.Init.HwFlowCtl",
+                "type": 5
+            },
+            {
+                "address": "0x2000071c",
+                "name": "huart2.Init.Mode",
+                "type": 5
+            },
+            {
+                "address": "0x20000724",
+                "name": "huart2.Init.OverSampling",
+                "type": 5
+            },
+            {
+                "address": "0x20000718",
+                "name": "huart2.Init.Parity",
+                "type": 5
+            },
+            {
+                "address": "0x20000714",
+                "name": "huart2.Init.StopBits",
+                "type": 5
+            },
+            {
+                "address": "0x20000710",
+                "name": "huart2.Init.WordLength",
+                "type": 5
+            },
+            {
+                "address": "0x20000708",
+                "name": "huart2.Instance",
+                "type": 5
+            },
+            {
+                "address": "0x20000748",
+                "name": "huart2.Lock",
+                "type": 2
+            },
+            {
+                "address": "0x20000730",
+                "name": "huart2.pRxBuffPtr",
+                "type": 5
+            },
+            {
+                "address": "0x20000728",
+                "name": "huart2.pTxBuffPtr",
+                "type": 5
+            },
+            {
+                "address": "0x20000738",
+                "name": "huart2.ReceptionType",
+                "type": 5
+            },
+            {
+                "address": "0x2000073c",
+                "name": "huart2.RxEventType",
+                "type": 5
+            },
+            {
+                "address": "0x2000074a",
+                "name": "huart2.RxState",
+                "type": 2
+            },
+            {
+                "address": "0x20000736",
+                "name": "huart2.RxXferCount",
+                "type": 3
+            },
+            {
+                "address": "0x20000734",
+                "name": "huart2.RxXferSize",
+                "type": 3
+            },
+            {
+                "address": "0x2000072e",
+                "name": "huart2.TxXferCount",
+                "type": 3
+            },
+            {
+                "address": "0x2000072c",
+                "name": "huart2.TxXferSize",
+                "type": 3
+            },
+            {
+                "address": "0x200000fc",
+                "name": "InterruptThresholdSettings[0]",
+                "type": 1
+            },
+            {
+                "address": "0x20000804",
+                "name": "KernelState",
+                "type": 4
+            },
+            {
+                "address": "0x20000002",
+                "name": "position",
+                "type": 3,
+                "checked": true
+            },
+            {
+                "address": "0x20000578",
+                "name": "puissance",
+                "type": 9,
+                "checked": true
+            },
+            {
+                "address": "0x20000f98",
+                "name": "pxCurrentTCB",
+                "type": 5
+            },
+            {
+                "address": "0x200014c0",
+                "name": "pxCurrentTimerList",
+                "type": 5
+            },
+            {
+                "address": "0x20001424",
+                "name": "pxDelayedTaskList",
+                "type": 5
+            },
+            {
+                "address": "0x200051d4",
+                "name": "pxEnd",
+                "type": 5
+            },
+            {
+                "address": "0x20001428",
+                "name": "pxOverflowDelayedTaskList",
+                "type": 5
+            },
+            {
+                "address": "0x200014c4",
+                "name": "pxOverflowTimerList",
+                "type": 5
+            },
+            {
+                "address": "0x20000fa0",
+                "name": "pxReadyTasksLists[0].pxIndex",
+                "type": 5
+            },
+            {
+                "address": "0x20000f9c",
+                "name": "pxReadyTasksLists[0].uxNumberOfItems",
+                "type": 5
+            },
+            {
+                "address": "0x20000fa8",
+                "name": "pxReadyTasksLists[0].xListEnd.pxNext",
+                "type": 5
+            },
+            {
+                "address": "0x20000fac",
+                "name": "pxReadyTasksLists[0].xListEnd.pxPrevious",
+                "type": 5
+            },
+            {
+                "address": "0x20000fa4",
+                "name": "pxReadyTasksLists[0].xListEnd.xItemValue",
+                "type": 5
+            },
+            {
+                "address": "0x200002b4",
+                "name": "refArrayQuadrants[0]",
+                "type": 5
+            },
+            {
+                "address": "0x200007b0",
+                "name": "RX_BUF[0]",
+                "type": 2
+            },
+            {
+                "address": "0x20000564",
+                "name": "semaphore_courant",
+                "type": 5
+            },
+            {
+                "address": "0x20000568",
+                "name": "semaphore_position",
+                "type": 5
+            },
+            {
+                "address": "0x20000004",
+                "name": "SystemCoreClock",
+                "type": 5
+            },
+            {
+                "address": "0x20000580",
+                "name": "tension_fil",
+                "type": 9,
+                "checked": true
+            },
+            {
+                "address": "0x080123d8",
+                "name": "test_attributes.attr_bits",
+                "type": 5
+            },
+            {
+                "address": "0x080123dc",
+                "name": "test_attributes.cb_mem",
+                "type": 5
+            },
+            {
+                "address": "0x080123e0",
+                "name": "test_attributes.cb_size",
+                "type": 5
+            },
+            {
+                "address": "0x080123d4",
+                "name": "test_attributes.name",
+                "type": 5
+            },
+            {
+                "address": "0x080123ec",
+                "name": "test_attributes.priority",
+                "type": 4
+            },
+            {
+                "address": "0x080123f4",
+                "name": "test_attributes.reserved",
+                "type": 5
+            },
+            {
+                "address": "0x080123e4",
+                "name": "test_attributes.stack_mem",
+                "type": 5
+            },
+            {
+                "address": "0x080123e8",
+                "name": "test_attributes.stack_size",
+                "type": 5
+            },
+            {
+                "address": "0x080123f0",
+                "name": "test_attributes.tz_module",
+                "type": 5
+            },
+            {
+                "address": "0x2000058c",
+                "name": "testHandle",
+                "type": 5
+            },
+            {
+                "address": "0x200015cc",
+                "name": "ucHeap[0]",
+                "type": 1
+            },
+            {
+                "address": "0x200015c4",
+                "name": "ucMaxSysCallPriority",
+                "type": 1
+            },
+            {
+                "address": "0x200015c8",
+                "name": "ulMaxPRIGROUPValue",
+                "type": 5
+            },
+            {
+                "address": "0x20000800",
+                "name": "uwTick",
+                "type": 5
+            },
+            {
+                "address": "0x200002c8",
+                "name": "uwTickFreq",
+                "type": 2
+            },
+            {
+                "address": "0x200002c4",
+                "name": "uwTickPrio",
+                "type": 5
+            },
+            {
+                "address": "0x200002cc",
+                "name": "uxCriticalNesting",
+                "type": 5
+            },
+            {
+                "address": "0x2000146c",
+                "name": "uxCurrentNumberOfTasks",
+                "type": 5
+            },
+            {
+                "address": "0x20001454",
+                "name": "uxDeletedTasksWaitingCleanUp",
+                "type": 5
+            },
+            {
+                "address": "0x20001494",
+                "name": "uxSchedulerSuspended",
+                "type": 5
+            },
+            {
+                "address": "0x20001488",
+                "name": "uxTaskNumber",
+                "type": 5
+            },
+            {
+                "address": "0x20001474",
+                "name": "uxTopReadyPriority",
+                "type": 5
+            },
+            {
+                "address": "0x2000149c",
+                "name": "xActiveTimerList1.pxIndex",
+                "type": 5
+            },
+            {
+                "address": "0x20001498",
+                "name": "xActiveTimerList1.uxNumberOfItems",
+                "type": 5
+            },
+            {
+                "address": "0x200014a4",
+                "name": "xActiveTimerList1.xListEnd.pxNext",
+                "type": 5
+            },
+            {
+                "address": "0x200014a8",
+                "name": "xActiveTimerList1.xListEnd.pxPrevious",
+                "type": 5
+            },
+            {
+                "address": "0x200014a0",
+                "name": "xActiveTimerList1.xListEnd.xItemValue",
+                "type": 5
+            },
+            {
+                "address": "0x200014b0",
+                "name": "xActiveTimerList2.pxIndex",
+                "type": 5
+            },
+            {
+                "address": "0x200014ac",
+                "name": "xActiveTimerList2.uxNumberOfItems",
+                "type": 5
+            },
+            {
+                "address": "0x200014b8",
+                "name": "xActiveTimerList2.xListEnd.pxNext",
+                "type": 5
+            },
+            {
+                "address": "0x200014bc",
+                "name": "xActiveTimerList2.xListEnd.pxPrevious",
+                "type": 5
+            },
+            {
+                "address": "0x200014b4",
+                "name": "xActiveTimerList2.xListEnd.xItemValue",
+                "type": 5
+            },
+            {
+                "address": "0x200051e8",
+                "name": "xBlockAllocatedBit",
+                "type": 5
+            },
+            {
+                "address": "0x20001400",
+                "name": "xDelayedTaskList1.pxIndex",
+                "type": 5
+            },
+            {
+                "address": "0x200013fc",
+                "name": "xDelayedTaskList1.uxNumberOfItems",
+                "type": 5
+            },
+            {
+                "address": "0x20001408",
+                "name": "xDelayedTaskList1.xListEnd.pxNext",
+                "type": 5
+            },
+            {
+                "address": "0x2000140c",
+                "name": "xDelayedTaskList1.xListEnd.pxPrevious",
+                "type": 5
+            },
+            {
+                "address": "0x20001404",
+                "name": "xDelayedTaskList1.xListEnd.xItemValue",
+                "type": 5
+            },
+            {
+                "address": "0x20001414",
+                "name": "xDelayedTaskList2.pxIndex",
+                "type": 5
+            },
+            {
+                "address": "0x20001410",
+                "name": "xDelayedTaskList2.uxNumberOfItems",
+                "type": 5
+            },
+            {
+                "address": "0x2000141c",
+                "name": "xDelayedTaskList2.xListEnd.pxNext",
+                "type": 5
+            },
+            {
+                "address": "0x20001420",
+                "name": "xDelayedTaskList2.xListEnd.pxPrevious",
+                "type": 5
+            },
+            {
+                "address": "0x20001418",
+                "name": "xDelayedTaskList2.xListEnd.xItemValue",
+                "type": 5
+            },
+            {
+                "address": "0x200051d8",
+                "name": "xFreeBytesRemaining",
+                "type": 5
+            },
+            {
+                "address": "0x20001490",
+                "name": "xIdleTaskHandle",
+                "type": 5
+            },
+            {
+                "address": "0x200051dc",
+                "name": "xMinimumEverFreeBytesRemaining",
+                "type": 5
+            },
+            {
+                "address": "0x2000148c",
+                "name": "xNextTaskUnblockTime",
+                "type": 5
+            },
+            {
+                "address": "0x200051e0",
+                "name": "xNumberOfSuccessfulAllocations",
+                "type": 5
+            },
+            {
+                "address": "0x200051e4",
+                "name": "xNumberOfSuccessfulFrees",
+                "type": 5
+            },
+            {
+                "address": "0x20001484",
+                "name": "xNumOfOverflows",
+                "type": 6
+            },
+            {
+                "address": "0x2000147c",
+                "name": "xPendedTicks",
+                "type": 5
+            },
+            {
+                "address": "0x20001430",
+                "name": "xPendingReadyList.pxIndex",
+                "type": 5
+            },
+            {
+                "address": "0x2000142c",
+                "name": "xPendingReadyList.uxNumberOfItems",
+                "type": 5
+            },
+            {
+                "address": "0x20001438",
+                "name": "xPendingReadyList.xListEnd.pxNext",
+                "type": 5
+            },
+            {
+                "address": "0x2000143c",
+                "name": "xPendingReadyList.xListEnd.pxPrevious",
+                "type": 5
+            },
+            {
+                "address": "0x20001434",
+                "name": "xPendingReadyList.xListEnd.xItemValue",
+                "type": 5
+            },
+            {
+                "address": "0x20000f58",
+                "name": "xQueueRegistry[0].pcQueueName",
+                "type": 5
+            },
+            {
+                "address": "0x20000f5c",
+                "name": "xQueueRegistry[0].xHandle",
+                "type": 5
+            },
+            {
+                "address": "0x20001478",
+                "name": "xSchedulerRunning",
+                "type": 6
+            },
+            {
+                "address": "0x200051cc",
+                "name": "xStart.pxNextFreeBlock",
+                "type": 5
+            },
+            {
+                "address": "0x200051d0",
+                "name": "xStart.xBlockSize",
+                "type": 5
+            },
+            {
+                "address": "0x2000145c",
+                "name": "xSuspendedTaskList.pxIndex",
+                "type": 5
+            },
+            {
+                "address": "0x20001458",
+                "name": "xSuspendedTaskList.uxNumberOfItems",
+                "type": 5
+            },
+            {
+                "address": "0x20001464",
+                "name": "xSuspendedTaskList.xListEnd.pxNext",
+                "type": 5
+            },
+            {
+                "address": "0x20001468",
+                "name": "xSuspendedTaskList.xListEnd.pxPrevious",
+                "type": 5
+            },
+            {
+                "address": "0x20001460",
+                "name": "xSuspendedTaskList.xListEnd.xItemValue",
+                "type": 5
+            },
+            {
+                "address": "0x20001444",
+                "name": "xTasksWaitingTermination.pxIndex",
+                "type": 5
+            },
+            {
+                "address": "0x20001440",
+                "name": "xTasksWaitingTermination.uxNumberOfItems",
+                "type": 5
+            },
+            {
+                "address": "0x2000144c",
+                "name": "xTasksWaitingTermination.xListEnd.pxNext",
+                "type": 5
+            },
+            {
+                "address": "0x20001450",
+                "name": "xTasksWaitingTermination.xListEnd.pxPrevious",
+                "type": 5
+            },
+            {
+                "address": "0x20001448",
+                "name": "xTasksWaitingTermination.xListEnd.xItemValue",
+                "type": 5
+            },
+            {
+                "address": "0x20001470",
+                "name": "xTickCount",
+                "type": 5
+            },
+            {
+                "address": "0x200014c8",
+                "name": "xTimerQueue",
+                "type": 5
+            },
+            {
+                "address": "0x200014cc",
+                "name": "xTimerTaskHandle",
+                "type": 5
+            },
+            {
+                "address": "0x20001480",
+                "name": "xYieldPending",
+                "type": 6
+            }
+        ],
+        "expand": false,
+        "filename": "AMF.elf",
+        "exeModifiedTime": 1791385006048,
+        "configLastUpdate": 1791385023573
+    },
+    {
+        "id": "486977ab13fc8ba6",
+        "type": "ui-page",
+        "name": "ACE Interface",
+        "ui": "0d63522267edb7d1",
+        "path": "/dash",
+        "icon": "home",
+        "layout": "grid",
+        "theme": "8a11916d0c3db486",
+        "breakpoints": [
+            {
+                "name": "Default",
+                "px": "0",
+                "cols": "3"
+            },
+            {
+                "name": "Tablet",
+                "px": "576",
+                "cols": "6"
+            },
+            {
+                "name": "Small Desktop",
+                "px": "768",
+                "cols": "9"
+            },
+            {
+                "name": "Desktop",
+                "px": "1024",
+                "cols": "12"
+            }
+        ],
+        "order": 1,
+        "className": "",
+        "visible": "true",
+        "disabled": "false"
+    },
+    {
+        "id": "17d09b07.741a55",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "0d63522267edb7d1",
+        "type": "ui-base",
+        "name": "My Dashboard",
+        "path": "/dashboard",
+        "appIcon": "",
+        "includeClientData": true,
+        "acceptsClientConfig": [
+            "ui-notification",
+            "ui-control"
+        ],
+        "showPathInSidebar": false,
+        "headerContent": "page",
+        "navigationStyle": "default",
+        "titleBarStyle": "default",
+        "showReconnectNotification": true,
+        "notificationDisplayTime": 1,
+        "showDisconnectNotification": true,
+        "allowInstall": false
+    },
+    {
+        "id": "8a11916d0c3db486",
+        "type": "ui-theme",
+        "name": "Default Theme",
+        "colors": {
+            "surface": "#fcfcfd",
+            "primary": "#0d74ce",
+            "bgPage": "#f9f9fb",
+            "groupBg": "#ffffff",
+            "groupOutline": "#d9d9e0"
+        },
+        "sizes": {
+            "density": "default",
+            "pagePadding": "12px",
+            "groupGap": "12px",
+            "groupBorderRadius": "4px",
+            "widgetGap": "12px"
+        }
+    },
+    {
+        "id": "058325bfe4d2cace",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "@stm32/node-red-contrib-stm32cubemonitor": "2.6.0",
+            "@flowfuse/node-red-dashboard": "1.31.0",
+            "node-red-dashboard": "3.6.6"
+        }
+    }
+]
