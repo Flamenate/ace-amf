@@ -235,7 +235,7 @@ void test_task(void *argument)
 	int n = 0;
   /* Infinite loop */
   while (1) {
-    vTaskDelay(200);
+    vTaskDelay(osWaitForever);
     //HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
     n = snprintf(cadena, sizeof(cadena), "I = %f\n", courant);
     HAL_UART_Transmit(&huart2, (uint8_t *)cadena, n, 100);

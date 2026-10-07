@@ -154,22 +154,35 @@ void uart_receive_dma() {
 void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size) {
 	if (huart->Instance == USART2) {
 		char *end;
-		consigne_position = strtoul(RX_BUF, &end, 10);
 
-		// Saturation de la consigne pour les limits de deplacement de la masse
-		if (consigne_position > 165) {
-			consigne_position = 165;
-		} else if (consigne_position < 65) {
-			consigne_position = 65;
+		switch (RX_BUF[0]) {
+			case 'T':
+			case 't':
+				float debug = strtof(&RX_BUF[2], &end) / 100.0f;
+				__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, debug * __HAL_TIM_GET_AUTORELOAD(&htim3));
+				break;
+
+			case 'P':
+			case 'p':
+				consigne_position = strtoul(RX_BUF, &end, 10);
+
+				// Saturation de la consigne pour les limits de deplacement de la masse
+				if (consigne_position > 165) {
+					consigne_position = 165;
+				} else if (consigne_position < 65) {
+					consigne_position = 65;
+				}
+
+				// ECHO
+				char msg[16] = {0};
+				uint8_t n = 0;
+				n = snprintf(msg, sizeof(msg), "Cons = %u\n", consigne_position);
+
+				// Echo
+				HAL_UART_Transmit(&huart2, (uint8_t *)msg, n, 100);
+				break;
 		}
 
-		// ECHO
-		char msg[16] = {0};
-		uint8_t n = 0;
-		n = snprintf(msg, sizeof(msg), "Cons = %u\n", consigne_position);
-
-		// Echo
-		HAL_UART_Transmit(&huart2, (uint8_t *)msg, n, 100);
 	}
 
 	uart_receive_dma();

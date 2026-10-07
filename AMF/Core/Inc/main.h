@@ -75,6 +75,7 @@ extern volatile float puissance;
 extern volatile uint16_t position;
 extern volatile uint16_t consigne_position;
 
+
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
