@@ -59,7 +59,7 @@ SemaphoreHandle_t semaphore_courant;
 SemaphoreHandle_t semaphore_position;
 uint32_t adc_raw = 0;
 volatile uint16_t consigne_position = 65; // Hauteur du masse avec fil eloigné
-volatile float position = 65;
+volatile uint16_t position = 65;
 static float consigne_puissance = 0;
 volatile float courant = 0;
 volatile float puissance = 0;
@@ -177,6 +177,10 @@ void ctrl_courant(void *argument)
     duty = consigne_tension / VCC;
 
     set_pwm_duty(duty);
+
+    puissance = courant * consigne_tension;
+    tension_fil = consigne_tension;
+
   }
   /* USER CODE END ctrl_courant */
 }
@@ -207,7 +211,7 @@ void ctrl_position(void *argument)
     xSemaphoreTake(semaphore_position, portMAX_DELAY);
     //HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
 
-    uint16_t position = VL53L0X_LeerDistanciaMM(&vl53l0x_dev, &RangingData, &status);
+    position = VL53L0X_LeerDistanciaMM(&vl53l0x_dev, &RangingData, &status);
 
     int16_t erreur = consigne_position - position;
 
