@@ -164,7 +164,7 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size) {
 
 			case 'P':
 			case 'p':
-				consigne_position = strtoul(RX_BUF, &end, 10);
+				consigne_position = strtoul(&RX_BUF[2], &end, 10);
 
 				// Saturation de la consigne pour les limits de deplacement de la masse
 				if (consigne_position > 165) {
@@ -180,6 +180,26 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size) {
 
 				// Echo
 				HAL_UART_Transmit(&huart2, (uint8_t *)msg, n, 100);
+				break;
+
+			case 'D':
+			case 'd':
+				// Timer pour boucle de courant 1 kHz
+				HAL_TIM_Base_Start_IT(&htim2);
+
+				// Timer pour boucle de position 100 Hz
+				HAL_TIM_Base_Start_IT(&htim5);
+				break;
+
+			case 'A':
+			case 'a':
+				// Timer pour boucle de courant 1 kHz
+				HAL_TIM_Base_Stop_IT(&htim2);
+
+				// Timer pour boucle de position 100 Hz
+				HAL_TIM_Base_Stop_IT(&htim5);
+
+			default:
 				break;
 		}
 

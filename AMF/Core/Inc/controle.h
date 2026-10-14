@@ -14,7 +14,7 @@
 #define R				1.5f 	// [ohm]
 #define I_MAX			1.5f	// [A]
 #define P_MAX			I_MAX * I_MAX * R // [W]
-#define ADC_MAX			4095.0f
+#define ADC_MAX			3847.0f	// Pour 1.5A l'ampli donne 3V -> ADC_MAX = 3.1*4095/3.3
 
 void VL53L0X_config(VL53L0X_Dev_t *hvl53l0x, I2C_HandleTypeDef *hi2c, VL53L0X_Error *status);
 uint16_t VL53L0X_LeerDistanciaMM(VL53L0X_Dev_t *hvl53l0x, VL53L0X_RangingMeasurementData_t *RangingData, VL53L0X_Error *status);

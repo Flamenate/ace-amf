@@ -65,27 +65,30 @@ volatile float courant = 0;
 volatile float puissance = 0;
 volatile float duty = 0;
 volatile float tension_fil = 0;
+VL53L0X_Dev_t vl53l0x_dev; 							// Handle du vl53l0x
+VL53L0X_Error status;								// Status d'execution des fonctions
+VL53L0X_RangingMeasurementData_t RangingData; 		// Variable de stockage de la mesure
 
 /* USER CODE END Variables */
 /* Definitions for boucle_courant */
 osThreadId_t boucle_courantHandle;
 const osThreadAttr_t boucle_courant_attributes = {
   .name = "boucle_courant",
-  .stack_size = 256 * 4,
+  .stack_size = 1024 * 4,
   .priority = (osPriority_t) osPriorityNormal,
 };
 /* Definitions for boucle_position */
 osThreadId_t boucle_positionHandle;
 const osThreadAttr_t boucle_position_attributes = {
   .name = "boucle_position",
-  .stack_size = 256 * 4,
+  .stack_size = 1024 * 4,
   .priority = (osPriority_t) osPriorityAboveNormal,
 };
 /* Definitions for test */
 osThreadId_t testHandle;
 const osThreadAttr_t test_attributes = {
   .name = "test",
-  .stack_size = 128 * 4,
+  .stack_size = 1024 * 4,
   .priority = (osPriority_t) osPriorityLow,
 };
 
@@ -99,6 +102,24 @@ void ctrl_position(void *argument);
 void test_task(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
+
+/* Hook prototypes */
+void vApplicationStackOverflowHook(xTaskHandle xTask, signed char *pcTaskName);
+
+/* USER CODE BEGIN 4 */
+void vApplicationStackOverflowHook(xTaskHandle xTask, signed char *pcTaskName)
+{
+   /* Run time stack overflow checking is performed if
+   configCHECK_FOR_STACK_OVERFLOW is defined to 1 or 2. This hook function is
+   called if a stack overflow is detected. */
+	taskDISABLE_INTERRUPTS();
+	HAL_TIM_Base_Stop_IT(&htim2);
+	HAL_TIM_Base_Stop_IT(&htim5);
+	while (1) {
+
+	}
+}
+/* USER CODE END 4 */
 
 /**
   * @brief  FreeRTOS initialization
@@ -168,6 +189,7 @@ void ctrl_courant(void *argument)
   /* Infinite loop */
   while (1) {
     xSemaphoreTake(semaphore_courant, portMAX_DELAY);
+    //HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
 
     // I* = sqrt(P*/R) -> P* = I*^2 x R
     consigne_courant = sqrtf(consigne_puissance/R);
@@ -194,11 +216,6 @@ void ctrl_courant(void *argument)
 void ctrl_position(void *argument)
 {
   /* USER CODE BEGIN ctrl_position */
-
-	VL53L0X_Dev_t vl53l0x_dev; 							// Handle du vl53l0x
-	VL53L0X_Error status;								// Status d'execution des fonctions
-	VL53L0X_RangingMeasurementData_t RangingData; 		// Variable de stockage de la mesure
-
 	VL53L0X_config(&vl53l0x_dev, &hi2c1, &status);
 
 	if (status != VL53L0X_ERROR_NONE) {
@@ -208,14 +225,13 @@ void ctrl_position(void *argument)
   /* Infinite loop */
   while (1) {
     xSemaphoreTake(semaphore_position, portMAX_DELAY);
-    //HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+    HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
 
     position = VL53L0X_LeerDistanciaMM(&vl53l0x_dev, &RangingData, &status);
 
     int16_t erreur = consigne_position - position;
 
     consigne_puissance = pid_position(erreur);
-
   }
   /* USER CODE END ctrl_position */
 }
@@ -227,7 +243,6 @@ void ctrl_position(void *argument)
 * @retval None
 */
 /* USER CODE END Header_test_task */
-
 void test_task(void *argument)
 {
   /* USER CODE BEGIN test_task */
@@ -237,7 +252,7 @@ void test_task(void *argument)
   while (1) {
     vTaskDelay(osWaitForever);
     //HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
-    n = snprintf(cadena, sizeof(cadena), "I = %f\n", courant);
+    n = snprintf(cadena, sizeof(cadena), "y = %u\n", VL53L0X_LeerDistanciaMM(&vl53l0x_dev, &RangingData, &status));
     HAL_UART_Transmit(&huart2, (uint8_t *)cadena, n, 100);
   }
   /* USER CODE END test_task */

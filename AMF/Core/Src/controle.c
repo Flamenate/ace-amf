@@ -15,11 +15,12 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc) {
 	__HAL_DMA_DISABLE_IT(hadc1.DMA_Handle, DMA_IT_HT);
 
 	// POUR TESTING VITESSE DU SEMAPHORE
-	BaseType_t xHigherPriorityTaskWoken = pdFALSE;
+	//HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+	//BaseType_t xHigherPriorityTaskWoken = pdFALSE;
 
-	xSemaphoreGiveFromISR(semaphore_courant, &xHigherPriorityTaskWoken);
+	//xSemaphoreGiveFromISR(semaphore_courant, &xHigherPriorityTaskWoken);
 
-	portYIELD_FROM_ISR(xHigherPriorityTaskWoken)
+	//portYIELD_FROM_ISR(xHigherPriorityTaskWoken)
 
 }
 
@@ -39,13 +40,17 @@ void VL53L0X_config(VL53L0X_Dev_t *hvl53l0x, I2C_HandleTypeDef *hi2c, VL53L0X_Er
     *status = VL53L0X_StaticInit(hvl53l0x);
     *status = VL53L0X_PerformRefCalibration(hvl53l0x, &vhv, &phase);
 
-    *status = VL53L0X_SetDeviceMode(hvl53l0x, VL53L0X_DEVICEMODE_SINGLE_RANGING);
+    *status = VL53L0X_SetDeviceMode(hvl53l0x, VL53L0X_DEVICEMODE_CONTINUOUS_RANGING);
+    *status = VL53L0X_SetMeasurementTimingBudgetMicroSeconds(hvl53l0x, 10000);
+    *status = VL53L0X_StartMeasurement(hvl53l0x);
 }
 
 uint16_t VL53L0X_LeerDistanciaMM(VL53L0X_Dev_t *hvl53l0x, VL53L0X_RangingMeasurementData_t *RangingData, VL53L0X_Error *status) {
-    *status = VL53L0X_PerformSingleRangingMeasurement(hvl53l0x, RangingData);
+    //*status = VL53L0X_PerformSingleRangingMeasurement(hvl53l0x, RangingData);
+	*status = VL53L0X_GetRangingMeasurementData(hvl53l0x, RangingData);
 
     if (RangingData->RangeStatus == 0) {
+    	VL53L0X_ClearInterruptMask(hvl53l0x, 0);
         return RangingData->RangeMilliMeter - VL53L0X_OFFSET; // Mesure valide, on reste l'offset manuellement. On a pas les materiaux pour calibrer le senseur
     }
     return 0; // Verifier RangingData.RangeStatus pour obtenir l'erreur precis
@@ -54,11 +59,6 @@ uint16_t VL53L0X_LeerDistanciaMM(VL53L0X_Dev_t *hvl53l0x, VL53L0X_RangingMeasure
 float pid_position(int16_t erreur) {
 	static int16_t prev_erreur = 0;
 	static float integrale = 0;
-
-	// La masse est plus haute que la consigne -> Le fils doit refroidir
-	if (erreur <= 0) {
-		return 0.0f;
-	}
 
 	float proportionale = P_pos * erreur;
 	float temp = I_pos * DT_pos * ((float)erreur + (float)prev_erreur) * 0.5f;
@@ -77,6 +77,11 @@ float pid_position(int16_t erreur) {
 
 	if (integrale > integrale_max) {
 		integrale = integrale_max;
+	}
+
+	// La masse est plus haute que la consigne -> Le fils doit refroidir
+	if (erreur <= 0) {
+		return 0.0f;
 	}
 
 	// Puissance = P + I

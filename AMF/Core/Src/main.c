@@ -108,17 +108,11 @@ int main(void)
 	// Sortie PWM pour commuter MOSFET et faire convertion ADC avec TRGO
 	// f = 5 kHz
 	HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
-	__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, 0.1f*__HAL_TIM_GET_AUTORELOAD(&htim3));
+	//__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, 0.1f*__HAL_TIM_GET_AUTORELOAD(&htim3));
 
 	// Convertion ADC lancées pour TRGO du TIM3
 	HAL_ADC_Start_DMA(&hadc1, &adc_raw, 1);
 	__HAL_DMA_DISABLE_IT(hadc1.DMA_Handle, DMA_IT_HT);
-
-	// Timer pour boucle de courant 1 kHz
-	//HAL_TIM_Base_Start_IT(&htim2);
-
-	// Timer pour boucle de position 100 Hz
-	//HAL_TIM_Base_Start_IT(&htim5);
 
   /* USER CODE END 2 */
 
