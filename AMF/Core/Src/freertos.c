@@ -225,7 +225,7 @@ void ctrl_position(void *argument)
   /* Infinite loop */
   while (1) {
     xSemaphoreTake(semaphore_position, portMAX_DELAY);
-    HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
+    //HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
 
     position = VL53L0X_LeerDistanciaMM(&vl53l0x_dev, &RangingData, &status);
 
@@ -250,9 +250,9 @@ void test_task(void *argument)
 	int n = 0;
   /* Infinite loop */
   while (1) {
-    vTaskDelay(osWaitForever);
+    vTaskDelay(500);
     //HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
-    n = snprintf(cadena, sizeof(cadena), "y = %u\n", VL53L0X_LeerDistanciaMM(&vl53l0x_dev, &RangingData, &status));
+    n = snprintf(cadena, sizeof(cadena), "P = %u\n", VL53L0X_LeerDistanciaMM(&vl53l0x_dev, &RangingData, &status));
     HAL_UART_Transmit(&huart2, (uint8_t *)cadena, n, 100);
   }
   /* USER CODE END test_task */

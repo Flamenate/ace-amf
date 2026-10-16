@@ -3,6 +3,9 @@
 #include "tim.h"
 #include "adc.h"
 
+static float pid_p = P_pos;
+static float pid_i = I_pos;
+
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc) {
 	//HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
 
@@ -60,8 +63,8 @@ float pid_position(int16_t erreur) {
 	static int16_t prev_erreur = 0;
 	static float integrale = 0;
 
-	float proportionale = P_pos * erreur;
-	float temp = I_pos * DT_pos * ((float)erreur + (float)prev_erreur) * 0.5f;
+	float proportionale = pid_p * erreur;
+	float temp = pid_i * DT_pos * ((float)erreur + (float)prev_erreur) * 0.5f;
 	integrale += temp;
 
 	prev_erreur = erreur;
@@ -85,7 +88,7 @@ float pid_position(int16_t erreur) {
 	}
 
 	// Puissance = P + I
-	float consigne_puisance = proportionale + integrale;
+	float consigne_puisance = proportionale;// + integrale;
 
 	// Saturation de la consigne
 	if (consigne_puisance > P_MAX) {
@@ -131,4 +134,12 @@ float pid_courrant(float erreur) {
 
 void set_pwm_duty(float duty) {
 	__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, (float)(duty * __HAL_TIM_GET_AUTORELOAD(&htim3)));
+}
+
+void pid_set_p(float P) {
+	pid_p = P;
+}
+
+void pid_set_i(float I) {
+	pid_i = I;
 }

@@ -43,7 +43,16 @@ Core/Src/usart.o: ../Core/Src/usart.c ../Core/Inc/usart.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h \
- ../Core/Inc/tim.h
+ ../Core/Inc/tim.h ../Core/Inc/controle.h \
+ /home/juli/Documents/st/ENIB/AMF/Drivers/BSP/Components/vl53l0x/vl53l0x_api.h \
+ /home/juli/Documents/st/ENIB/AMF/Drivers/BSP/Components/vl53l0x/vl53l0x_api_strings.h \
+ /home/juli/Documents/st/ENIB/AMF/Drivers/BSP/Components/vl53l0x/vl53l0x_def.h \
+ /home/juli/Documents/st/ENIB/AMF/Drivers/BSP/Components/vl53l0x/vl53l0x_device.h \
+ /home/juli/Documents/st/ENIB/AMF/Drivers/BSP/Components/vl53l0x/vl53l0x_types.h \
+ /home/juli/Documents/st/ENIB/AMF/Drivers/BSP/NUCLEO-F411RE/vl53l0x_platform.h \
+ /home/juli/Documents/st/ENIB/AMF/Drivers/BSP/Components/vl53l0x/vl53l0x_def.h \
+ /home/juli/Documents/st/ENIB/AMF/Drivers/BSP/Components/vl53l0x/vl53l0x_platform_log.h \
+ ../Core/Inc/stm32xxx_hal.h ../Core/Inc/mxconstants.h
 ../Core/Inc/usart.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
@@ -91,3 +100,14 @@ Core/Src/usart.o: ../Core/Src/usart.c ../Core/Inc/usart.h \
 ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h:
 ../Core/Inc/tim.h:
+../Core/Inc/controle.h:
+/home/juli/Documents/st/ENIB/AMF/Drivers/BSP/Components/vl53l0x/vl53l0x_api.h:
+/home/juli/Documents/st/ENIB/AMF/Drivers/BSP/Components/vl53l0x/vl53l0x_api_strings.h:
+/home/juli/Documents/st/ENIB/AMF/Drivers/BSP/Components/vl53l0x/vl53l0x_def.h:
+/home/juli/Documents/st/ENIB/AMF/Drivers/BSP/Components/vl53l0x/vl53l0x_device.h:
+/home/juli/Documents/st/ENIB/AMF/Drivers/BSP/Components/vl53l0x/vl53l0x_types.h:
+/home/juli/Documents/st/ENIB/AMF/Drivers/BSP/NUCLEO-F411RE/vl53l0x_platform.h:
+/home/juli/Documents/st/ENIB/AMF/Drivers/BSP/Components/vl53l0x/vl53l0x_def.h:
+/home/juli/Documents/st/ENIB/AMF/Drivers/BSP/Components/vl53l0x/vl53l0x_platform_log.h:
+../Core/Inc/stm32xxx_hal.h:
+../Core/Inc/mxconstants.h:

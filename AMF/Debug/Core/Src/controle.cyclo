@@ -1,6 +1,8 @@
-../Core/Src/controle.c:6:6:HAL_ADC_ConvCpltCallback	1
-../Core/Src/controle.c:27:6:VL53L0X_config	1
-../Core/Src/controle.c:48:10:VL53L0X_LeerDistanciaMM	2
-../Core/Src/controle.c:59:7:pid_position	5
-../Core/Src/controle.c:98:7:pid_courrant	4
-../Core/Src/controle.c:132:6:set_pwm_duty	1
+../Core/Src/controle.c:9:6:HAL_ADC_ConvCpltCallback	1
+../Core/Src/controle.c:30:6:VL53L0X_config	1
+../Core/Src/controle.c:51:10:VL53L0X_LeerDistanciaMM	2
+../Core/Src/controle.c:62:7:pid_position	5
+../Core/Src/controle.c:101:7:pid_courrant	4
+../Core/Src/controle.c:135:6:set_pwm_duty	1
+../Core/Src/controle.c:139:6:pid_set_p	1
+../Core/Src/controle.c:143:6:pid_set_i	1

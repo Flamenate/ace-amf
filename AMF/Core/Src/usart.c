@@ -26,6 +26,7 @@
 #include <stdio.h>
 
 #include "tim.h"
+#include "controle.h"
 
 /* USER CODE END 0 */
 
@@ -156,14 +157,16 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size) {
 		char *end;
 
 		switch (RX_BUF[0]) {
+			// Duty manuale pour testing
 			case 'T':
 			case 't':
 				float debug = strtof(&RX_BUF[2], &end) / 100.0f;
 				__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, debug * __HAL_TIM_GET_AUTORELOAD(&htim3));
 				break;
 
-			case 'P':
-			case 'p':
+			// Consigne hauteur
+			case 'H':
+			case 'h':
 				consigne_position = strtoul(&RX_BUF[2], &end, 10);
 
 				// Saturation de la consigne pour les limits de deplacement de la masse
@@ -182,6 +185,7 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size) {
 				HAL_UART_Transmit(&huart2, (uint8_t *)msg, n, 100);
 				break;
 
+			// Demarrer boucle de controle
 			case 'D':
 			case 'd':
 				// Timer pour boucle de courant 1 kHz
@@ -191,6 +195,7 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size) {
 				HAL_TIM_Base_Start_IT(&htim5);
 				break;
 
+			// Arreter boucle de controle
 			case 'A':
 			case 'a':
 				// Timer pour boucle de courant 1 kHz
@@ -198,6 +203,22 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size) {
 
 				// Timer pour boucle de position 100 Hz
 				HAL_TIM_Base_Stop_IT(&htim5);
+
+			// Changer P du PID
+			case 'P':
+			case 'p':
+				float new_p = strtof(&RX_BUF[2], &end);
+
+				pid_set_p(new_p);
+				break;
+
+			// Changer P du PID
+			case 'I':
+			case 'i':
+				float new_i = strtof(&RX_BUF[2], &end);
+
+				pid_set_i(new_i);
+				break;
 
 			default:
 				break;
