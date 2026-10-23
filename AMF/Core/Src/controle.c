@@ -5,6 +5,7 @@
 
 static float pid_p = P_pos;
 static float pid_i = I_pos;
+static float alpha = IIR_ALPHA;
 
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *hadc) {
 	//HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
@@ -98,38 +99,11 @@ float pid_position(int16_t erreur) {
 	return consigne_puisance;
 }
 
-float pid_courrant(float erreur) {
-	static int16_t prev_erreur = 0;
-	static float integrale = 0;
+float iir(float x) {
+	// yn = yn-1 + alpha * (xn - yn-1)  yn-1 est la dernier sortie du filtre -> position
+	float y = position + alpha * (x - position);
 
-	float proportionale = P_pos * erreur;
-	float temp = I_pos * DT_pos * ((float)erreur + (float)prev_erreur) * 0.5f;
-	integrale += temp;
-
-	prev_erreur = erreur;
-
-	float integrale_max;
-
-	// Limits du partie integrale
-	if (proportionale > P_MAX) {
-		integrale_max = 0;
-	} else {
-		integrale_max = P_MAX - proportionale;
-	}
-
-	if (integrale > integrale_max) {
-		integrale = integrale_max;
-	}
-
-	// Puissance = P + I
-	float consigne_puisance = proportionale + integrale;
-
-	// Saturation de la consigne
-	if (consigne_puisance > P_MAX) {
-		consigne_puisance = P_MAX;
-	}
-
-	return consigne_puisance;
+	return y;
 }
 
 void set_pwm_duty(float duty) {
@@ -142,4 +116,8 @@ void pid_set_p(float P) {
 
 void pid_set_i(float I) {
 	pid_i = I;
+}
+
+void iir_set_alpha(float new_alpha) {
+	alpha = new_alpha;
 }

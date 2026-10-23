@@ -2,4 +2,4 @@
 ../Core/Src/freertos.c:129:6:MX_FREERTOS_Init	8	static
 ../Core/Src/freertos.c:182:6:ctrl_courant	24	static
 ../Core/Src/freertos.c:216:6:ctrl_position	24	static
-../Core/Src/freertos.c:246:6:test_task	56	static
+../Core/Src/freertos.c:252:6:test_task	56	static

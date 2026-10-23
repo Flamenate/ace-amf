@@ -3,9 +3,9 @@
 
 #include "vl53l0x_api.h"
 
-#define VL53L0X_OFFSET 	60 	// [mm]
+#define VL53L0X_OFFSET 	65 	// [mm]
 #define P_pos			1.0f
-#define I_pos			1.0f
+#define I_pos			2.0f
 #define P_cur			1.0f
 #define I_cur			1.0f
 #define DT_pos			0.01f 	// [s]
@@ -15,13 +15,15 @@
 #define I_MAX			1.5f	// [A]
 #define P_MAX			I_MAX * I_MAX * R // [W]
 #define ADC_MAX			3723.0f	// Pour 1.5A l'ampli donne 3V -> ADC_MAX = 3.0*4095/3.3
+#define IIR_ALPHA		0.3f
 
 void VL53L0X_config(VL53L0X_Dev_t *hvl53l0x, I2C_HandleTypeDef *hi2c, VL53L0X_Error *status);
 uint16_t VL53L0X_LeerDistanciaMM(VL53L0X_Dev_t *hvl53l0x, VL53L0X_RangingMeasurementData_t *RangingData, VL53L0X_Error *status);
 float pid_position(int16_t erreur);
-float pid_courrant(float erreur);
+float iir(float x);
 void set_pwm_duty(float duty);
 void pid_set_p(float P);
 void pid_set_i(float I);
+void iir_set_alpha(float new_alpha);
 
 #endif /* INC_CONTROLE_H_ */

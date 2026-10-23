@@ -105,10 +105,9 @@ int main(void)
 	// Reception de données par UART
 	uart_receive_dma();
 
-	// Sortie PWM pour commuter MOSFET et faire convertion ADC avec TRGO
+	// Sortie PWM pour commuter MOSFET et demarrer convertions ADC avec TRGO
 	// f = 5 kHz
 	HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
-	//__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, 0.1f*__HAL_TIM_GET_AUTORELOAD(&htim3));
 
 	// Convertion ADC lancées pour TRGO du TIM3
 	HAL_ADC_Start_DMA(&hadc1, &adc_raw, 1);

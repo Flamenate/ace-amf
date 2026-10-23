@@ -2,4 +2,4 @@
 ../Core/Src/usart.c:66:6:HAL_UART_MspInit	3
 ../Core/Src/usart.c:118:6:HAL_UART_MspDeInit	2
 ../Core/Src/usart.c:150:6:uart_receive_dma	1
-../Core/Src/usart.c:155:6:HAL_UARTEx_RxEventCallback	10
+../Core/Src/usart.c:155:6:HAL_UARTEx_RxEventCallback	11

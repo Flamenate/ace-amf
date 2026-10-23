@@ -204,6 +204,10 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size) {
 				// Timer pour boucle de position 100 Hz
 				HAL_TIM_Base_Stop_IT(&htim5);
 
+				// Duty PWM en 0%
+				__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, 0);
+				break;
+
 			// Changer P du PID
 			case 'P':
 			case 'p':
@@ -218,6 +222,13 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size) {
 				float new_i = strtof(&RX_BUF[2], &end);
 
 				pid_set_i(new_i);
+				break;
+
+			case 'F':
+			case 'f':
+				float new_alpha = strtof(&RX_BUF[2], &end);
+
+				iir_set_alpha(new_alpha);
 				break;
 
 			default:

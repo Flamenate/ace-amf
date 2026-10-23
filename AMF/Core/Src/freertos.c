@@ -222,12 +222,18 @@ void ctrl_position(void *argument)
 		HAL_UART_Transmit(&huart2, (uint8_t*)"Error config\r\n", 14, 1000);
 	}
 
+	float position_raw = 65;
+
   /* Infinite loop */
   while (1) {
     xSemaphoreTake(semaphore_position, portMAX_DELAY);
     //HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
 
-    position = VL53L0X_LeerDistanciaMM(&vl53l0x_dev, &RangingData, &status);
+    // Sampling de l'hauter
+    position_raw = VL53L0X_LeerDistanciaMM(&vl53l0x_dev, &RangingData, &status);
+
+    // Filtrage IIR
+    position = iir(position_raw);
 
     int16_t erreur = consigne_position - position;
 
@@ -250,7 +256,7 @@ void test_task(void *argument)
 	int n = 0;
   /* Infinite loop */
   while (1) {
-    vTaskDelay(500);
+    vTaskDelay(portMAX_DELAY);
     //HAL_GPIO_TogglePin(LED_GPIO_Port, LED_Pin);
     n = snprintf(cadena, sizeof(cadena), "P = %u\n", VL53L0X_LeerDistanciaMM(&vl53l0x_dev, &RangingData, &status));
     HAL_UART_Transmit(&huart2, (uint8_t *)cadena, n, 100);
